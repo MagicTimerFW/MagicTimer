@@ -1,0 +1,16 @@
+PODS:
+  - MagicTimer (0.1.0)
+
+DEPENDENCIES:
+  - MagicTimer (from `../`)
+
+EXTERNAL SOURCES:
+  MagicTimer:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  MagicTimer: 01b740d69513fdfb51a02b0425ab336dbddf73ca
+
+PODFILE CHECKSUM: fb78e00aeb4307729370da9751caaf6781eec9ab
+
+COCOAPODS: 1.9.3

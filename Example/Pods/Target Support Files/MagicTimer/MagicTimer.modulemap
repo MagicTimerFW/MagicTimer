@@ -1,0 +1,6 @@
+framework module MagicTimer {
+  umbrella header "MagicTimer-umbrella.h"
+
+  export *
+  module * { export * }
+}

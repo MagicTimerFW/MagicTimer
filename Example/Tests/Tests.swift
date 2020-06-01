@@ -1,5 +1,4 @@
 import XCTest
-import MagicTimer
 
 class Tests: XCTestCase {
     

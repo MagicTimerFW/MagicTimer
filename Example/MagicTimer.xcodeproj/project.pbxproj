@@ -28,8 +28,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		23978C4181824350DAA6823A /* MagicTimer.podspec */ = {isa = PBXFileReference; includeInIndex = 1; name = MagicTimer.podspec; path = ../MagicTimer.podspec; sourceTree = "<group>"; };
-		31E59D20EC760FFE3141ECFE /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		23978C4181824350DAA6823A /* MagicTimer.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = MagicTimer.podspec; path = ../MagicTimer.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		31E59D20EC760FFE3141ECFE /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		33D67ECCAD0A480854D2FD57 /* Pods_MagicTimer_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MagicTimer_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B0CF771593F2B2D73BF88BE /* Pods_MagicTimer_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MagicTimer_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD01AFB9204008FA782 /* MagicTimer_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MagicTimer_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -45,7 +45,7 @@
 		8E19C45641F99A8D8684F77C /* Pods-MagicTimer_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MagicTimer_Tests.release.xcconfig"; path = "Target Support Files/Pods-MagicTimer_Tests/Pods-MagicTimer_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		99C5E08054BD9603712939AD /* Pods-MagicTimer_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MagicTimer_Example.debug.xcconfig"; path = "Target Support Files/Pods-MagicTimer_Example/Pods-MagicTimer_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		9FFE6AC26DED3B4800594CA6 /* Pods-MagicTimer_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MagicTimer_Example.release.xcconfig"; path = "Target Support Files/Pods-MagicTimer_Example/Pods-MagicTimer_Example.release.xcconfig"; sourceTree = "<group>"; };
-		E7784C2A6F847A398D035A4D /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		E7784C2A6F847A398D035A4D /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		FBC41B9710E5FBD2469B879D /* Pods-MagicTimer_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MagicTimer_Tests.debug.xcconfig"; path = "Target Support Files/Pods-MagicTimer_Tests/Pods-MagicTimer_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -156,7 +156,6 @@
 				FBC41B9710E5FBD2469B879D /* Pods-MagicTimer_Tests.debug.xcconfig */,
 				8E19C45641F99A8D8684F77C /* Pods-MagicTimer_Tests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -227,6 +226,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
