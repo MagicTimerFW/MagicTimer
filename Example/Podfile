@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'MagicTimer_Example' do
+  pod 'MagicTimer', :path => '../'
+
+  target 'MagicTimer_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
