@@ -6,7 +6,7 @@
 [![Platform](https://img.shields.io/cocoapods/p/MagicTimer.svg?style=flat)](https://cocoapods.org/pods/MagicTimer)
 [![Gitter](https://badges.gitter.im/MagicTimerCommunity/community.svg)](https://gitter.im/MagicTimerCommunity/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
-![MagicTimerLogo](https://user-images.githubusercontent.com/43542836/83530695-518d8180-a501-11ea-8286-6e7a7560c549.png)
+![MagicTimerLogo](https://user-images.githubusercontent.com/43542836/83555945-53b50780-a524-11ea-850e-d10b0839f63b.png)
 
 Magic Timer is a UIView based timer that displays a countdown or count-up timer.<br/>
 ![Sample_MagicTimer](https://user-images.githubusercontent.com/43542836/83536289-42f69880-a508-11ea-9ad1-059049ba504c.png)
