@@ -19,7 +19,7 @@ class ViewController: UIViewController {
         timer.isActiveInBackground = false
         timer.font = UIFont.systemFont(ofSize: 45, weight: .bold)
         timer.mode = .stopWatch
-        timer.
+        timer.delegate = self
     }
     
     @IBAction func start(_ sender: Any) {
@@ -38,5 +38,12 @@ class ViewController: UIViewController {
         timer.resetToDefault()
     }
     
+}
+
+extension ViewController: MagicInterfaceTimerDelegate {
+    
+    func timerElapsedTimeDidChange(timer: MagicInterfaceTimer, elapsedTime: TimeInterval) {
+        //print(elapsedTime)
+    }
 }
 
