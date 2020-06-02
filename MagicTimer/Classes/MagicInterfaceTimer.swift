@@ -18,7 +18,7 @@ open class MagicInterfaceTimer: UIView {
     private var formatter: MGFormatter = MGStandardTimerFormatter()
     /// Elappsed time of timer.
     private(set) var elapsedTime: TimeInterval?
-    /// The current state of timer.
+    /// The current state of the timer.
     public var currentState: MGStateManager.TimerState {
         return broker.state.currentTimerState
     }
@@ -38,16 +38,7 @@ open class MagicInterfaceTimer: UIView {
             timerLabel.font = timerLabel.font.withSize(newValue)
         }
     }
-    
-    /// Default value of the timer. Initial value is 0.
-    @IBInspectable public var defaultValue: Int = 0 {
-        willSet {
-            broker.defultValue = newValue.convertToTimeInterval()
-            let validTimeInterval = newValue.convertToTimeInterval()
-            timerLabel.text = formatter.converToValidFormat(ti: validTimeInterval)
-        }
-    }
-    
+        
     /// The radius to use when drawing rounded corners for the timer view background. Default is 0.0.
     @IBInspectable public var cornerRadius: CGFloat = 0.0 {
         willSet {
@@ -67,13 +58,13 @@ open class MagicInterfaceTimer: UIView {
         }
     }
     
-    /// The Start color of the gradient. Default is nil.
+    /// The Start color of the gradient. The default is nil.
     @IBInspectable public var startColor: UIColor? {
         didSet {
             updateGradient()
         }
     }
-    /// The end color of the gradient. Default is nil.
+    /// The end color of the gradient. The default is nil.
     @IBInspectable public var endColor: UIColor? {
         didSet {
             updateGradient()
@@ -85,7 +76,7 @@ open class MagicInterfaceTimer: UIView {
             updateGradient()
         }
     }
-    /// Background image of the timer. Default is nil
+    /// Background image of the timer. Default is nil.
     public var backgroundImage: UIImage? {
         willSet {
             let isHidden = newValue != nil ? false: true
@@ -93,27 +84,36 @@ open class MagicInterfaceTimer: UIView {
             backgrounImageView.image = newValue
         }
     }
-    /// A value that affect to counting. Default is 1.
+    /// A value that affects to counting. Default is 1.
     @IBInspectable public var effectiveValue: Int = 1 {
         willSet {
             let validTimeInterval = newValue.convertToTimeInterval()
             broker.effectiveValue = validTimeInterval
         }
     }
-    /// A interval that affect within observing time. Default is 1
+    /// An interval that affects to observing time. Default is 1.
     @IBInspectable public var timeInterval: Int = 1 {
         willSet {
             let validTImeInterval = newValue.convertToTimeInterval()
             broker.timeInterval = validTImeInterval
         }
     }
+    /// The default value of the timer. The initial value is 0.
+    @IBInspectable public var defaultValue: Int = 0 {
+        willSet {
+            broker.defultValue = newValue.convertToTimeInterval()
+            let validTimeInterval = newValue.convertToTimeInterval()
+            timerLabel.text = formatter.converToValidFormat(ti: validTimeInterval)
+        }
+    }
+    
     /// A Boolean value that determines whether the calculation of timer active in background.
     @IBInspectable public var isActiveInBackground: Bool = false {
         willSet {
             broker.isActiveInBackground = newValue
         }
     }
-    /// The font to use to display timer text.
+    /// The font used to display the timer label text.
     public var font: UIFont? {
         willSet {
             timerLabel.font = newValue?.monospacedDigitFont
@@ -249,7 +249,7 @@ open class MagicInterfaceTimer: UIView {
         timerLabel.text = formatter.converToValidFormat(ti: 0)
         broker.reset()
     }
-    /// Reset timer to default value.
+    /// Reset timer to the default value.
     public func resetToDefault() {
         timerLabel.text = formatter.converToValidFormat(ti: broker.defultValue)
         broker.resetToDefault()

@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'MagicTimer'
-  s.version          = '0.1.1'
+  s.version          = '0.1.2'
   s.summary          = 'Magic Timer is a label timer that deals with schedule timer'
 
   s.homepage         = 'https://github.com/sadeghgoo/MagicTimer'
