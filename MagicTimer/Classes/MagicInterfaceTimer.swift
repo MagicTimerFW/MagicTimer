@@ -29,7 +29,7 @@ open class MagicInterfaceTimer: UIView {
         }
     }
     
-    weak var delegate: MagicInterfaceTimerDelegate?
+    public weak var delegate: MagicInterfaceTimerDelegate?
     
     /// Font size of timer label. just available in interface builder. Default value is 18.
     @available(*, unavailable, message: "Just available in interface builder")
