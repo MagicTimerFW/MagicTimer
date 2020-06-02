@@ -7,18 +7,36 @@
 //
 
 import UIKit
+import MagicTimer
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var timer: MagicInterfaceTimer!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        timer.isActiveInBackground = false
+        timer.font = UIFont.systemFont(ofSize: 45, weight: .bold)
+        timer.mode = .stopWatch
+        timer.
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    @IBAction func start(_ sender: Any) {
+        timer.startCounting()
     }
-
+    
+    @IBAction func stop(_ sender: Any) {
+        timer.stopCounting()
+    }
+    
+    @IBAction func reset(_ sender: Any) {
+        timer.reset()
+    }
+    
+    @IBAction func resetDefault(_ sender: Any) {
+        timer.resetToDefault()
+    }
+    
 }
 
