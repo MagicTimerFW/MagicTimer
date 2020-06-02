@@ -4,26 +4,217 @@
 [![Version](https://img.shields.io/cocoapods/v/MagicTimer.svg?style=flat)](https://cocoapods.org/pods/MagicTimer)
 [![License](https://img.shields.io/cocoapods/l/MagicTimer.svg?style=flat)](https://cocoapods.org/pods/MagicTimer)
 [![Platform](https://img.shields.io/cocoapods/p/MagicTimer.svg?style=flat)](https://cocoapods.org/pods/MagicTimer)
+[![Gitter](https://badges.gitter.im/MagicTimerCommunity/community.svg)](https://gitter.im/MagicTimerCommunity/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
-## Example
+![MagicTimerLogo](https://user-images.githubusercontent.com/43542836/83530695-518d8180-a501-11ea-8286-6e7a7560c549.png)
 
-To run the example project, clone the repo, and run `pod install` from the Example directory first.
+Magic Timer is a UIView based timer that displays a countdown or count-up timer.<br/>
+![Sample_MagicTimer](https://user-images.githubusercontent.com/43542836/83536289-42f69880-a508-11ea-9ad1-059049ba504c.png)
+- [Features](#features)
+- [Requirements](#requirements)
+- [Communication](#communication)
+- [Installation](#installation)
+- [Documention](#documention), 
+  - **Control -** [startCounting](#startCounting), [stopCounting](#stopCounting), [reset](#reset), [resetToDefault](#resetToDefault)
+  - **Behavior -** [timeInterval](#timeInterval), [effectiveValue](#effectiveValue), [defaultValue](#defaultValue)
+  - **Design -** [Gradient](#gradient), [Border](#border), [CornerRadius](#CornerRadius), [Font](#Font), [Background design](#backgroundDesign )
+
+## Features
+- [x] Fully customizable design 
+- [x] Support stop watch / count down mode
+- [x] Suppport in background time calculation  
+- [x] Modifable time interval / step
+- [x] Fully Managable: start, pause, reset
+- [x] Available in interface builder or using code
+- [x] Support Monospace
+- [x] **Easy to use**
 
 ## Requirements
+- iOS 11.0+
+- Swift 5.0+
+
+## Communication
+
+- If you **need help** with magic timer use [Stack Overflow](https://stackoverflow.com/questions/tagged/magictimer) and tag `magictimer`.
+- If you **found a bug**, open an issue here on GitHub and follow the guide. The more detail the better!
+- If you **want to contribute**, submit a pull request!
+
 
 ## Installation
 
-MagicTimer is available through [CocoaPods](https://cocoapods.org). To install
-it, simply add the following line to your Podfile:
+### Cocoapod
+[CocoaPods](https://cocoapods.org) is a dependency manager for Cocoa projects. For usage and installation instructions, visit their website.
 
+You can install Cocoapods with the following command:
+```
+$ gem install cocoapods
+```
+To integrate MagicTimer into your Xcode project using CocoaPods, specify it in your `Podfile`.
 ```ruby
-pod 'MagicTimer'
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target <'Your target name'> do
+    pod 'MagicTimer'
+end
+
+```
+## Basic Usage
+
+### Interface builder
+
+1. Drag a `UIView` onto your view controller and set the view's class to `MagicIntercaceTimer` in the *Identity Inspector*:<br/>
+![](https://media.giphy.com/media/StvIvoajEb2lk1uaeZ/giphy.gif)
+
+2. Connect your timer view to your view controller with an `IBOutlet`:<br/>
+![](https://media.giphy.com/media/gdU2vOQEKbaNVlHgns/giphy.gif)
+
+3. Import MagicTimer to your View Controller
+```swift
+import MagicTimer
 ```
 
-## Author
+3. Call `startCounting` to Begins updates the timer’s display.
 
-sadeghgoo, sadeghitunes2@gmail.com
+### Code
 
-## License
+```swift
+import MagicTimer
 
-MagicTimer is available under the MIT license. See the LICENSE file for more info.
+let frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+let timer = MagicInterfaceTimer(frame: frame)
+timer.startCounting() // Begins updates to the timer’s display.
+```
+
+## Documention
+
+### MagicInterfaceTimer(IBDesignable)
+
+An Interface object that displays a countdown or count-up timer. Use a timer object to configure the amount of time and the appearance of the timer text.
+When you start the timer, Magic timer updates the displayed text automatically on the user’s
+device without further interactions from your extension.
+```swift
+open class MagicInterfaceTimer : UIView
+
+```
+
+# Control 
+Control timer within the below methods.
+### `startCounting`
+Begins updates to the timer’s display.
+```swift
+public func startCounting()
+```
+### `stopCounting`
+Stops updates to the timer’s display.
+```swift
+public func stopCounting()
+```
+### `reset`
+Reset timer to zero.
+```swift
+public func reset()
+```
+### `resetToDefault`
+Reset timer to the default value.
+```swift
+public func resetToDefault()
+```
+### `currentState`
+The current state of the timer.
+```swift
+public var currentState: MGStateManager.TimerState { get }
+```
+
+# Obsreve 
+You can observe elapsed time in two ways. <br />
+**First**: using `elapsedTime` property.
+```swift
+private(set) var elapsedTime: TimeInterval?
+```
+**Second**: using **Delegate** to observe `elapsedTime` when elapsed time did change.
+```swift
+protocol MagicInterfaceTimerDelegate: AnyObject {
+    func timerElapsedTimeDidChange(timer: MagicInterfaceTimer, elapsedTime: TimeInterval)
+}
+```
+# Behavior 
+Customize timer behavior within the below properties.
+### `timeInterval`
+An interval that affects to observing time. Default is 1.
+```swift
+public var timeInterval: Int { get set }
+```
+### `effectiveValue`
+A value that affects to counting. Default is 1.
+```swift
+public var effectiveValue: Int { get set }
+```
+### `defaultValue`
+The default value of the timer. The initial value is 0.
+```swift
+public var defaultValue: Int { get set }
+```
+
+# Background mode
+### `isActiveInBackground`
+A Boolean value that determines whether the calculation of timer active in the background.
+```swift
+public var isActiveInBackground: Bool { get set }
+```
+# Design 
+## Gradient
+Set gradient with a custom angle.
+### `startColor(IBInspectable)`
+The Start color of the gradient. The default is nil.
+```swift
+public var startColor: UIColor? { get set }
+```
+### `endColor(IBInspectable)`
+The end color of the gradient. The default is nil.
+```swift
+public var endColor: UIColor? { get set }
+```
+### `angle(IBInspectable)`
+The angle of the gradient. The default is 270 degrees.
+```swift
+public var angle: CGFloat { get set }
+```
+
+## Border
+### `borderColor(IBInspectable)`
+The color of the border. Default is clear.
+```swift
+public var borderColor: UIColor { get set }
+```
+### `borderWidth(IBInspectable)`
+The width of the border. Default is 0.0.
+```swift
+public var borderWidth: CGFloat { get set }
+```
+
+## CornerRadius
+### `cornerRadius(IBInspectable)`
+The radius to use when drawing rounded corners for the timer view background. Default is 0.0.
+```swift
+public var cornerRadius: CGFloat { get set }
+```
+## Font
+
+### `fontSize(IBInspectable)`
+Font size of timer label. **Just available in interface builder**.
+t
+### `font`
+The font used to display the timer label text.
+```swift
+public var font: UIFont? { get set }
+```
+### 
+
+## BackgroundDesign 
+### `backgroundImage`
+Background image of the timer. Default is nil.
+```swift
+public var backgroundImage: UIImage? { get set }
+
+```
