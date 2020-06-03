@@ -17,7 +17,7 @@ Magic Timer is a UIView based timer that displays a countdown or count-up timer.
 - [Documention](#documention), 
   - **Control -** [startCounting](#startCounting), [stopCounting](#stopCounting), [reset](#reset), [resetToDefault](#resetToDefault)
   - **Behavior -** [timeInterval](#timeInterval), [effectiveValue](#effectiveValue), [defaultValue](#defaultValue)
-  - **Design -** [Gradient](#gradient), [Border](#border), [CornerRadius](#CornerRadius), [Font](#Font), [Background design](#backgroundDesign )
+  - **Design -** [Gradient](#gradient), [Border](#border), [CornerRadius](#CornerRadius), [Text](#Text), [Background design](#backgroundDesign )
 
 ## Features
 - [x] Fully customizable design 
@@ -199,18 +199,21 @@ The radius to use when drawing rounded corners for the timer view background. De
 ```swift
 public var cornerRadius: CGFloat { get set }
 ```
-## Font
+## Text
 
 ### `fontSize(IBInspectable)`
 Font size of timer label. **Just available in interface builder**.
-t
+
 ### `font`
 The font used to display the timer label text.
 ```swift
 public var font: UIFont? { get set }
 ```
-### 
-
+### `textColor`
+The color of the timer label.
+```swift
+public var textColor: UIColor! { get set }
+```
 ## BackgroundDesign 
 ### `backgroundImage`
 Background image of the timer. Default is nil.
