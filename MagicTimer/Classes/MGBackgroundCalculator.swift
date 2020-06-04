@@ -32,16 +32,16 @@ class MGBackgroundCalculator: MGBackgroundCalculableBehavior, MGLogable {
         /// Check if background mode is activated
         guard isActiveBackgroundMode else { return }
         
-        if !isFirstForegroundNotification && MGStateManager.shared.currentTimerState != .stopped {
+        if  MGStateManager.shared.currentTimerState == .fired {
             /// Calculate time diffrence between two date
             if let timeInterval = calculateDateDiffrence() {
                 observe!(timeInterval)
                 
             }
             log(message: "background time calculation completed")
-
         }
-        isFirstForegroundNotification = false
+        
+        
 
     
     }
