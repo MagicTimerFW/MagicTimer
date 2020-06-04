@@ -19,79 +19,82 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="52t-jS-r5r">
-                                <rect key="frame" x="139" y="396" width="137" height="51"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Start">
-                                    <color key="titleColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="start:" destination="enC-QT-OiG" eventType="touchUpInside" id="8hc-9f-06Q"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M4Q-mM-8HK">
-                                <rect key="frame" x="139" y="455" width="137" height="51"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Stop"/>
-                                <connections>
-                                    <action selector="stop:" destination="enC-QT-OiG" eventType="touchUpInside" id="ZG6-ch-FYT"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4G2-qS-erT">
-                                <rect key="frame" x="139" y="514" width="137" height="51"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Reset"/>
-                                <connections>
-                                    <action selector="reset:" destination="enC-QT-OiG" eventType="touchUpInside" id="SVB-rs-g1L"/>
-                                </connections>
-                            </button>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="afT-bw-gvZ" customClass="MagicInterfaceTimer" customModule="MagicTimer">
-                                <rect key="frame" x="87" y="256" width="240" height="82"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aQD-3T-H0M" customClass="MagicTimerView" customModule="MagicTimer">
+                                <rect key="frame" x="87" y="410" width="240" height="76"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="H3u-7X-f1a"/>
+                                    <constraint firstAttribute="height" constant="76" id="zgr-4Y-dsM"/>
+                                </constraints>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
-                                        <real key="value" value="40"/>
-                                    </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="textColor">
-                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="value" systemColor="systemPinkColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="startColor">
-                                        <color key="value" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="endColor">
-                                        <color key="value" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="3"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                         <real key="value" value="20"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                        <color key="value" red="0.89769973024033178" green="0.89634604207117863" blue="0.91999160255440415" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                        <real key="value" value="4"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="angle">
-                                        <real key="value" value="30"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
+                                        <real key="value" value="40"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="defaultValue">
-                                        <integer key="value" value="5"/>
+                                        <integer key="value" value="10"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IFp-OI-0fy">
-                                <rect key="frame" x="139" y="573" width="137" height="51"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Reset to default"/>
-                                <connections>
-                                    <action selector="resetDefault:" destination="enC-QT-OiG" eventType="touchUpInside" id="tkp-Yd-VNM"/>
-                                </connections>
-                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="fBZ-wd-JlF">
+                                <rect key="frame" x="30" y="496" width="354" height="356"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="52t-jS-r5r">
+                                        <rect key="frame" x="0.0" y="0.0" width="354" height="83"/>
+                                        <state key="normal" title="Start">
+                                            <color key="titleColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="start:" destination="enC-QT-OiG" eventType="touchUpInside" id="8hc-9f-06Q"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M4Q-mM-8HK">
+                                        <rect key="frame" x="0.0" y="91" width="354" height="83"/>
+                                        <state key="normal" title="Stop"/>
+                                        <connections>
+                                            <action selector="stop:" destination="enC-QT-OiG" eventType="touchUpInside" id="ZG6-ch-FYT"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4G2-qS-erT">
+                                        <rect key="frame" x="0.0" y="182" width="354" height="83"/>
+                                        <state key="normal" title="Reset"/>
+                                        <connections>
+                                            <action selector="reset:" destination="enC-QT-OiG" eventType="touchUpInside" id="SVB-rs-g1L"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IFp-OI-0fy">
+                                        <rect key="frame" x="0.0" y="273" width="354" height="83"/>
+                                        <state key="normal" title="Reset to default"/>
+                                        <connections>
+                                            <action selector="resetDefault:" destination="enC-QT-OiG" eventType="touchUpInside" id="tkp-Yd-VNM"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="fBZ-wd-JlF" firstAttribute="top" secondItem="aQD-3T-H0M" secondAttribute="bottom" constant="10" id="4Hm-1P-dOq"/>
+                            <constraint firstItem="xWO-Vh-2vv" firstAttribute="top" secondItem="fBZ-wd-JlF" secondAttribute="bottom" constant="10" id="DBg-IN-EeC"/>
+                            <constraint firstItem="fBZ-wd-JlF" firstAttribute="leading" secondItem="L5Z-BH-wnR" secondAttribute="leadingMargin" constant="10" id="GOf-Hy-t6f"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="fBZ-wd-JlF" secondAttribute="trailing" constant="10" id="aJD-GK-gQ3"/>
+                            <constraint firstItem="aQD-3T-H0M" firstAttribute="centerY" secondItem="L5Z-BH-wnR" secondAttribute="centerY" id="j08-TY-9ch"/>
+                            <constraint firstItem="aQD-3T-H0M" firstAttribute="centerX" secondItem="L5Z-BH-wnR" secondAttribute="centerX" id="uKW-ah-gay"/>
+                        </constraints>
                     </view>
                     <connections>
-                        <outlet property="timer" destination="afT-bw-gvZ" id="9Qh-Dc-aG5"/>
+                        <outlet property="timer" destination="aQD-3T-H0M" id="Sif-1X-BAY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RJn-0E-mBj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

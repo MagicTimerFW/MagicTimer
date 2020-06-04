@@ -14,12 +14,12 @@
 		72D40F3B24859C5600C4B442 /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D40F2E24859C5600C4B442 /* UIFont+Extension.swift */; };
 		72D40F3C24859C5600C4B442 /* MGBackgroundCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D40F2F24859C5600C4B442 /* MGBackgroundCalculator.swift */; };
 		72D40F3D24859C5600C4B442 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D40F3024859C5600C4B442 /* Int+Extension.swift */; };
-		72D40F3E24859C5600C4B442 /* MagicInterfaceTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D40F3124859C5600C4B442 /* MagicInterfaceTimer.swift */; };
+		72D40F3E24859C5600C4B442 /* MagicTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D40F3124859C5600C4B442 /* MagicTimerView.swift */; };
 		72D40F3F24859C5600C4B442 /* MGStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D40F3224859C5600C4B442 /* MGStateManager.swift */; };
 		72D40F4024859C5600C4B442 /* MGCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D40F3324859C5600C4B442 /* MGCounter.swift */; };
 		72D40F4124859C5600C4B442 /* MGObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D40F3424859C5600C4B442 /* MGObservable.swift */; };
 		72D40F4224859C5600C4B442 /* MGTimerExecutive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D40F3524859C5600C4B442 /* MGTimerExecutive.swift */; };
-		72D40F4324859C5600C4B442 /* MagicInterfaceTimerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D40F3624859C5600C4B442 /* MagicInterfaceTimerDelegate.swift */; };
+		72D40F4324859C5600C4B442 /* MagicTimerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D40F3624859C5600C4B442 /* MagicTimerViewDelegate.swift */; };
 		72D40F4424859C5600C4B442 /* TimeInterval+Extesnion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D40F3724859C5600C4B442 /* TimeInterval+Extesnion.swift */; };
 		72D40F4524859C5600C4B442 /* MGStandardTimerFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D40F3824859C5600C4B442 /* MGStandardTimerFormatter.swift */; };
 		72D40F4624859C5600C4B442 /* MGTimerBroker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D40F3924859C5600C4B442 /* MGTimerBroker.swift */; };
@@ -66,12 +66,12 @@
 		72D40F2E24859C5600C4B442 /* UIFont+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		72D40F2F24859C5600C4B442 /* MGBackgroundCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MGBackgroundCalculator.swift; sourceTree = "<group>"; };
 		72D40F3024859C5600C4B442 /* Int+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
-		72D40F3124859C5600C4B442 /* MagicInterfaceTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagicInterfaceTimer.swift; sourceTree = "<group>"; };
+		72D40F3124859C5600C4B442 /* MagicTimerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagicTimerView.swift; sourceTree = "<group>"; };
 		72D40F3224859C5600C4B442 /* MGStateManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MGStateManager.swift; sourceTree = "<group>"; };
 		72D40F3324859C5600C4B442 /* MGCounter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MGCounter.swift; sourceTree = "<group>"; };
 		72D40F3424859C5600C4B442 /* MGObservable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MGObservable.swift; sourceTree = "<group>"; };
 		72D40F3524859C5600C4B442 /* MGTimerExecutive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MGTimerExecutive.swift; sourceTree = "<group>"; };
-		72D40F3624859C5600C4B442 /* MagicInterfaceTimerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagicInterfaceTimerDelegate.swift; sourceTree = "<group>"; };
+		72D40F3624859C5600C4B442 /* MagicTimerViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagicTimerViewDelegate.swift; sourceTree = "<group>"; };
 		72D40F3724859C5600C4B442 /* TimeInterval+Extesnion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Extesnion.swift"; sourceTree = "<group>"; };
 		72D40F3824859C5600C4B442 /* MGStandardTimerFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MGStandardTimerFormatter.swift; sourceTree = "<group>"; };
 		72D40F3924859C5600C4B442 /* MGTimerBroker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MGTimerBroker.swift; sourceTree = "<group>"; };
@@ -183,12 +183,12 @@
 				72D40F2E24859C5600C4B442 /* UIFont+Extension.swift */,
 				72D40F2F24859C5600C4B442 /* MGBackgroundCalculator.swift */,
 				72D40F3024859C5600C4B442 /* Int+Extension.swift */,
-				72D40F3124859C5600C4B442 /* MagicInterfaceTimer.swift */,
+				72D40F3124859C5600C4B442 /* MagicTimerView.swift */,
 				72D40F3224859C5600C4B442 /* MGStateManager.swift */,
 				72D40F3324859C5600C4B442 /* MGCounter.swift */,
 				72D40F3424859C5600C4B442 /* MGObservable.swift */,
 				72D40F3524859C5600C4B442 /* MGTimerExecutive.swift */,
-				72D40F3624859C5600C4B442 /* MagicInterfaceTimerDelegate.swift */,
+				72D40F3624859C5600C4B442 /* MagicTimerViewDelegate.swift */,
 				72D40F3724859C5600C4B442 /* TimeInterval+Extesnion.swift */,
 				72D40F3824859C5600C4B442 /* MGStandardTimerFormatter.swift */,
 				72D40F3924859C5600C4B442 /* MGTimerBroker.swift */,
@@ -421,12 +421,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				72D40F3D24859C5600C4B442 /* Int+Extension.swift in Sources */,
-				72D40F4324859C5600C4B442 /* MagicInterfaceTimerDelegate.swift in Sources */,
+				72D40F4324859C5600C4B442 /* MagicTimerViewDelegate.swift in Sources */,
 				72D40F4624859C5600C4B442 /* MGTimerBroker.swift in Sources */,
 				72D40F3B24859C5600C4B442 /* UIFont+Extension.swift in Sources */,
 				72D40F4124859C5600C4B442 /* MGObservable.swift in Sources */,
 				72D40F3C24859C5600C4B442 /* MGBackgroundCalculator.swift in Sources */,
-				72D40F3E24859C5600C4B442 /* MagicInterfaceTimer.swift in Sources */,
+				72D40F3E24859C5600C4B442 /* MagicTimerView.swift in Sources */,
 				72D40F3F24859C5600C4B442 /* MGStateManager.swift in Sources */,
 				72D40F4224859C5600C4B442 /* MGTimerExecutive.swift in Sources */,
 				72D40F4524859C5600C4B442 /* MGStandardTimerFormatter.swift in Sources */,

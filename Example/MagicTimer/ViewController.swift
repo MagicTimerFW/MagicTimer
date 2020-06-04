@@ -11,7 +11,7 @@ import MagicTimer
 
 class ViewController: UIViewController {
 
-    @IBOutlet weak var timer: MagicInterfaceTimer!
+    @IBOutlet weak var timer: MagicTimerView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,9 +40,9 @@ class ViewController: UIViewController {
     
 }
 
-extension ViewController: MagicInterfaceTimerDelegate {
+extension ViewController: MagicTimerViewDelegate {
     
-    func timerElapsedTimeDidChange(timer: MagicInterfaceTimer, elapsedTime: TimeInterval) {
+    func timerElapsedTimeDidChange(timer: MagicTimerView, elapsedTime: TimeInterval) {
         //print(elapsedTime)
     }
 }
