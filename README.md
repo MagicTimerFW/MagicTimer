@@ -82,19 +82,19 @@ import MagicTimer
 import MagicTimer
 
 let frame = CGRect(x: 0, y: 0, width: 100, height: 100)
-let timer = MagicInterfaceTimer(frame: frame)
+let timer = MagicTimerView(frame: frame)
 timer.startCounting() // Begins updates to the timer’s display.
 ```
 
 ## Documention
 
-### MagicInterfaceTimer(IBDesignable)
+### MagicTimerView(IBDesignable)
 
 An Interface object that displays a countdown or count-up timer. Use a timer object to configure the amount of time and the appearance of the timer text.
 When you start the timer, Magic timer updates the displayed text automatically on the user’s
 device without further interactions from your extension.
 ```swift
-open class MagicInterfaceTimer : UIView
+open class MagicTimerView : UIView
 
 ```
 
@@ -134,8 +134,8 @@ private(set) var elapsedTime: TimeInterval?
 ```
 **Second**: using **Delegate** to observe `elapsedTime` when elapsed time did change.
 ```swift
-protocol MagicInterfaceTimerDelegate: AnyObject {
-    func timerElapsedTimeDidChange(timer: MagicInterfaceTimer, elapsedTime: TimeInterval)
+protocol MagicTimerViewDelegate: AnyObject {
+    func timerElapsedTimeDidChange(timer: MagicTimerView, elapsedTime: TimeInterval)
 }
 ```
 # Behavior 
