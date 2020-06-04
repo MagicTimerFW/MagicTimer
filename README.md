@@ -221,3 +221,7 @@ Background image of the timer. Default is nil.
 public var backgroundImage: UIImage? { get set }
 
 ```
+## Author
+sadegh bitarafan(sadeghgoo), sadeghitunes2@gmail.com
+## License
+MagicTimer is available under the MIT license. See the LICENSE file for more info.
