@@ -63,7 +63,7 @@ end
 
 ### Interface builder
 
-1. Drag a `UIView` onto your view controller and set the view's class to `MagicIntercaceTimer` in the *Identity Inspector*:<br/>
+1. Drag a `UIView` onto your view controller and set the view's class to `MagicTimerView` in the *Identity Inspector*:<br/>
 ![](https://media.giphy.com/media/StvIvoajEb2lk1uaeZ/giphy.gif)
 
 2. Connect your timer view to your view controller with an `IBOutlet`:<br/>
