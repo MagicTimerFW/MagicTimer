@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 
 /**
- An Interface object that displays a countdown or count-up timer.
+ An  object that displays a countdown or count-up timer.
  
  Use a timer object to configure the amount of time and the appearance of the timer text.
  When you start the timer, Magic timer updates the displayed text automatically on the user’s
@@ -10,9 +10,9 @@ import UIKit
  */
 
 @IBDesignable
-open class MagicInterfaceTimer: UIView {
+open class MagicTimerView: UIView {
     
-    /// Timer broker that bridge between timer logic and interface.
+    /// Timer broker that bridge between timer logic and view.
     private var broker: MGTimerBroker = .init()
     /// Formatter that format time interval to string.
     private var formatter: MGFormatter = MGStandardTimerFormatter()
@@ -29,7 +29,7 @@ open class MagicInterfaceTimer: UIView {
         }
     }
     
-    public weak var delegate: MagicInterfaceTimerDelegate?
+    public weak var delegate: MagicTimerViewDelegate?
     
     /// Font size of timer label. just available in interface builder. Default value is 18.
     @available(*, unavailable, message: "Just available in interface builder")
@@ -59,19 +59,19 @@ open class MagicInterfaceTimer: UIView {
     }
     
     /// The Start color of the gradient. The default is nil.
-    @IBInspectable public var startColor: UIColor? {
+    @IBInspectable public var gradeintStartColor: UIColor? {
         didSet {
             updateGradient()
         }
     }
     /// The end color of the gradient. The default is nil.
-    @IBInspectable public var endColor: UIColor? {
+    @IBInspectable public var gradeintEndColor: UIColor? {
         didSet {
             updateGradient()
         }
     }
     /// The angle of the gradient. The default is 270 degrees.
-    @IBInspectable public var angle: CGFloat = 270 {
+    @IBInspectable public var gradeintAngle: CGFloat = 270 {
         didSet {
             updateGradient()
         }
@@ -176,17 +176,17 @@ open class MagicInterfaceTimer: UIView {
     }
     
     public override func layoutSubviews() {
-        (layer as! CAGradientLayer).colors = [startColor?.cgColor ?? UIColor.clear.cgColor, endColor?.cgColor ?? UIColor.clear.cgColor]
+        (layer as! CAGradientLayer).colors = [gradeintStartColor?.cgColor ?? UIColor.clear.cgColor, gradeintEndColor?.cgColor ?? UIColor.clear.cgColor]
         (layer as! CAGradientLayer).cornerRadius = cornerRadius
     }
     
     private func updateGradient() {
         let grLayer = layer as? CAGradientLayer
         if let gradient = grLayer {
-            let startColor = self.startColor ?? UIColor.clear
-            let endColor = self.endColor ?? UIColor.clear
+            let startColor = self.gradeintStartColor ?? UIColor.clear
+            let endColor = self.gradeintEndColor ?? UIColor.clear
             gradient.colors = [startColor.cgColor, endColor.cgColor]
-            let (start, end) = gradientPointsForAngle(self.angle)
+            let (start, end) = gradientPointsForAngle(self.gradeintAngle)
             gradient.startPoint = start
             gradient.endPoint = end
         }
@@ -256,7 +256,7 @@ open class MagicInterfaceTimer: UIView {
     }
     
 }
-extension MagicInterfaceTimer: MGTimerBrokerDelegate {
+extension MagicTimerView: MGTimerBrokerDelegate {
     
     /// Called when broker send the elapsed time.
     func observeTimeInterval(_ ti: TimeInterval) {
@@ -268,7 +268,7 @@ extension MagicInterfaceTimer: MGTimerBrokerDelegate {
     }
     
 }
-extension MagicInterfaceTimer: StandardConstraintableView {
+extension MagicTimerView: StandardConstraintableView {
     
     /// Set constraint of any element in object.  Called in init after initialSubView method.
     func setConstraint() {
