@@ -90,7 +90,7 @@ timer.startCounting() // Begins updates to the timer’s display.
 
 ### MagicTimerView(IBDesignable)
 
-An Interface object that displays a countdown or count-up timer. Use a timer object to configure the amount of time and the appearance of the timer text.
+An object that displays a countdown or count-up timer. Use a timer object to configure the amount of time and the appearance of the timer text.
 When you start the timer, Magic timer updates the displayed text automatically on the user’s
 device without further interactions from your extension.
 ```swift
