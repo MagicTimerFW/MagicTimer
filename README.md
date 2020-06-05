@@ -37,7 +37,7 @@ MagicTimer is a UIView based timer that displays a countdown or count-up timer.<
 
 - If you **need help** with magic timer use [Stack Overflow](https://stackoverflow.com/questions/tagged/magictimer) and tag `magictimer`.
 - If you **found a bug**, open an issue here on GitHub and follow the guide. The more detail the better!
-- If you **want to ![https://github.com/sadeghgoo/MagicTimer/blob/master/CONTRIBUTING.md](contribute)**, submit a pull request!
+- If you **want to ![contribute](https://github.com/sadeghgoo/MagicTimer/blob/master/CONTRIBUTING.md)**, submit a pull request!
 
 
 ## Installation
