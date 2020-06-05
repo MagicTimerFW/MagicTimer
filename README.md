@@ -8,7 +8,7 @@
 
 ![MagicTimerLogo](https://user-images.githubusercontent.com/43542836/83555945-53b50780-a524-11ea-850e-d10b0839f63b.png)
 
-Magic Timer is a UIView based timer that displays a countdown or count-up timer.<br/>
+MagicTimer is a UIView based timer that displays a countdown or count-up timer.<br/>
 ![Sample_MagicTimer](https://user-images.githubusercontent.com/43542836/83606033-2bfa8980-a58e-11ea-956e-b57b005f17fa.png)
 - [Features](#features)
 - [Requirements](#requirements)
