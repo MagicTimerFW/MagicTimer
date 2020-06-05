@@ -64,10 +64,10 @@ end
 ### Interface builder
 
 1. Drag a `UIView` onto your view controller and set the view's class to `MagicTimerView` in the *Identity Inspector*:<br/>
-![](https://media.giphy.com/media/StvIvoajEb2lk1uaeZ/giphy.gif)
+![](https://media.giphy.com/media/lTemQbrtcpq2SXYcuD/giphy.gif)
 
 2. Connect your timer view to your view controller with an `IBOutlet`:<br/>
-![](https://media.giphy.com/media/gdU2vOQEKbaNVlHgns/giphy.gif)
+![](https://media.giphy.com/media/W4QUN133WjUjhRq8RE/giphy.gif)
 
 3. Import MagicTimer to your View Controller
 ```swift
