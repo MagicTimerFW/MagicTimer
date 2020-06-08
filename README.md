@@ -125,7 +125,11 @@ The current state of the timer.
 ```swift
 public var currentState: MGStateManager.TimerState { get }
 ```
-
+### `mode`
+The mode of the timer. default is stop watch.
+```swift
+public var mode: MGCountMode { get set }
+```
 # Obsreve 
 You can observe elapsed time in two ways. <br />
 **First**: using `elapsedTime` property.
