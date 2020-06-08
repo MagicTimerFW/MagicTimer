@@ -8,7 +8,7 @@
 
 ![MagicTimerLogo](https://user-images.githubusercontent.com/43542836/83555945-53b50780-a524-11ea-850e-d10b0839f63b.png)
 
-Magic Timer is a UIView based timer that displays a countdown or count-up timer.<br/>
+MagicTimer is a UIView based timer that displays a countdown or count-up timer.<br/>
 ![Sample_MagicTimer](https://user-images.githubusercontent.com/43542836/83606033-2bfa8980-a58e-11ea-956e-b57b005f17fa.png)
 - [Features](#features)
 - [Requirements](#requirements)
@@ -37,7 +37,7 @@ Magic Timer is a UIView based timer that displays a countdown or count-up timer.
 
 - If you **need help** with magic timer use [Stack Overflow](https://stackoverflow.com/questions/tagged/magictimer) and tag `magictimer`.
 - If you **found a bug**, open an issue here on GitHub and follow the guide. The more detail the better!
-- If you **want to contribute**, submit a pull request!
+- If you **want to ![contribute](https://github.com/sadeghgoo/MagicTimer/blob/master/CONTRIBUTING.md)**, submit a pull request!
 
 
 ## Installation
@@ -63,11 +63,11 @@ end
 
 ### Interface builder
 
-1. Drag a `UIView` onto your view controller and set the view's class to `MagicIntercaceTimer` in the *Identity Inspector*:<br/>
-![](https://media.giphy.com/media/StvIvoajEb2lk1uaeZ/giphy.gif)
+1. Drag a `UIView` onto your view controller and set the view's class to `MagicTimerView` in the *Identity Inspector*:<br/>
+![](https://media.giphy.com/media/lTemQbrtcpq2SXYcuD/giphy.gif)
 
 2. Connect your timer view to your view controller with an `IBOutlet`:<br/>
-![](https://media.giphy.com/media/gdU2vOQEKbaNVlHgns/giphy.gif)
+![](https://media.giphy.com/media/W4QUN133WjUjhRq8RE/giphy.gif)
 
 3. Import MagicTimer to your View Controller
 ```swift
@@ -82,19 +82,19 @@ import MagicTimer
 import MagicTimer
 
 let frame = CGRect(x: 0, y: 0, width: 100, height: 100)
-let timer = MagicInterfaceTimer(frame: frame)
+let timer = MagicTimerView(frame: frame)
 timer.startCounting() // Begins updates to the timer’s display.
 ```
 
 ## Documention
 
-### MagicInterfaceTimer(IBDesignable)
+### MagicTimerView(IBDesignable)
 
-An Interface object that displays a countdown or count-up timer. Use a timer object to configure the amount of time and the appearance of the timer text.
+An object that displays a countdown or count-up timer. Use a timer object to configure the amount of time and the appearance of the timer text.
 When you start the timer, Magic timer updates the displayed text automatically on the user’s
 device without further interactions from your extension.
 ```swift
-open class MagicInterfaceTimer : UIView
+open class MagicTimerView : UIView
 
 ```
 
@@ -134,8 +134,8 @@ private(set) var elapsedTime: TimeInterval?
 ```
 **Second**: using **Delegate** to observe `elapsedTime` when elapsed time did change.
 ```swift
-protocol MagicInterfaceTimerDelegate: AnyObject {
-    func timerElapsedTimeDidChange(timer: MagicInterfaceTimer, elapsedTime: TimeInterval)
+protocol MagicTimerViewDelegate: AnyObject {
+    func timerElapsedTimeDidChange(timer: MagicTimerView, elapsedTime: TimeInterval)
 }
 ```
 # Behavior 
