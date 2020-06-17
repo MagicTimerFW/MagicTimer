@@ -1,10 +1,10 @@
 # MagicTimer
 
-[![CI Status](https://img.shields.io/travis/sadeghgoo/MagicTimer.svg?style=flat)](https://travis-ci.org/sadeghgoo/MagicTimer)
 [![Version](https://img.shields.io/cocoapods/v/MagicTimer.svg?style=flat)](https://cocoapods.org/pods/MagicTimer)
 [![License](https://img.shields.io/cocoapods/l/MagicTimer.svg?style=flat)](https://cocoapods.org/pods/MagicTimer)
-[![Platform](https://img.shields.io/cocoapods/p/MagicTimer.svg?style=flat)](https://cocoapods.org/pods/MagicTimer)
+![](https://img.shields.io/badge/Platform-iOS-blue)
 [![Gitter](https://badges.gitter.im/MagicTimerCommunity/community.svg)](https://gitter.im/MagicTimerCommunity/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+![](https://img.shields.io/badge/IBDesignable-Yes-green)
 
 ![MagicTimerLogo](https://user-images.githubusercontent.com/43542836/83555945-53b50780-a524-11ea-850e-d10b0839f63b.png)
 
@@ -125,7 +125,11 @@ The current state of the timer.
 ```swift
 public var currentState: MGStateManager.TimerState { get }
 ```
-
+### `mode`
+The mode of the timer. default is stop watch.
+```swift
+public var mode: MGCountMode { get set }
+```
 # Obsreve 
 You can observe elapsed time in two ways. <br />
 **First**: using `elapsedTime` property.
