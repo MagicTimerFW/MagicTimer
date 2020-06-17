@@ -13,7 +13,7 @@ import UIKit
 open class MagicTimerView: UIView {
     
     /// Timer broker that bridge between timer logic and view.
-    private var broker: MGTimerBroker = .init()
+    private var broker: MGTimer = .init()
     /// Formatter that format time interval to string.
     private var formatter: MGFormatter = MGStandardTimerFormatter()
     /// Elappsed time of timer.
@@ -259,7 +259,7 @@ open class MagicTimerView: UIView {
 extension MagicTimerView: MGTimerBrokerDelegate {
     
     /// Called when broker send the elapsed time.
-    func observeTimeInterval(_ ti: TimeInterval) {
+    public func observeTimeInterval(_ ti: TimeInterval) {
         self.elapsedTime = ti
         DispatchQueue.main.async {
             self.timerLabel.text = self.formatter.converToValidFormat(ti: ti)

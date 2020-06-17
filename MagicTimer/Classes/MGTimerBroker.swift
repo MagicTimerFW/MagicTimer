@@ -25,7 +25,7 @@ class MGTimerContainer: MGLogable {
 }
 
 /// Methods for observe time interval from timer broker.
-protocol MGTimerBrokerDelegate: AnyObject {
+public protocol MGTimerBrokerDelegate: AnyObject {
     func observeTimeInterval(_ ti: TimeInterval)
 }
 /// The timer counting mode.
@@ -34,51 +34,51 @@ public enum MGCountMode {
     case countDown(fromSeconds: TimeInterval)
 }
 /**
- A broker between contianer and interface.
+ A broker between contianer and view.
  
  Every time calculation or any commands are managing in MGTimerBroker that contains counter, executive and background time calculator.
  */
 
-class MGTimerBroker: MGLogable {
+public class MGTimer: MGLogable {
         
     private var container: MGTimerContainer
     private var backgroundCalculator: MGBackgroundCalculableBehavior
     private(set) var state: MGStateManager = .shared
     
     /// The object that acts as the delegate of the MGTimerBroker.
-    weak var delegate: MGTimerBrokerDelegate?
+    public weak var delegate: MGTimerBrokerDelegate?
     
     /// Set value to counter defultValue.
-    var defultValue: TimeInterval = 0 {
+    public var defultValue: TimeInterval = 0 {
         willSet {
             let positiveValue = max(0, newValue)
             container.counter.setDefaultValue(positiveValue)
         }
     }
     /// Set value to counter effectiveValue.
-    var effectiveValue: TimeInterval = 1 {
+    public var effectiveValue: TimeInterval = 1 {
         willSet {
             let positiveValue = max(0, newValue)
             container.counter.setEffectiveValue(positiveValue)
         }
     }
     /// Set time interval to executive timeInerval.
-    var timeInterval: TimeInterval = 1  {
+    public var timeInterval: TimeInterval = 1  {
         willSet {
             let positiveValue = max(0, newValue)
             container.executive.setTimeInterval(positiveValue)
         }
     }
     /// Set value to  backgroundCalculator isActiveBackgroundMode property.
-    var isActiveInBackground: Bool = false {
+    public var isActiveInBackground: Bool = false {
         willSet {
             backgroundCalculator.isActiveBackgroundMode = newValue
         }
     }
     /// State of time counting.
-    var countMode: MGCountMode = .stopWatch
+    public var countMode: MGCountMode = .stopWatch
     
-    init() {
+    public init() {
         self.container = MGTimerContainer(counter: MGCounter(), executive: MGTimerExecutive())
         self.backgroundCalculator = MGBackgroundCalculator()
         
@@ -140,7 +140,7 @@ class MGTimerBroker: MGLogable {
     }
     
     /// Observe counting mode and start counting.
-    func start() {
+    public func start() {
         
         container.executive.start {
             // Set current date to timer firing date(for calculate background elapsed time). When set the time is not fired.
@@ -157,13 +157,13 @@ class MGTimerBroker: MGLogable {
         log(message: "timer started")
     }
     /// Stop timer counting.
-    func stop() {
+    public func stop() {
         container.executive.suspand()
         state.currentTimerState = .stopped
         log(message: "timer stopped")
     }
     /// Reset timer to zero
-    func reset() {
+    public func reset() {
         container.executive.suspand()
         container.counter.resetTotalCounted()
         state.currentTimerState = .restarted
@@ -171,7 +171,7 @@ class MGTimerBroker: MGLogable {
         
     }
     /// Reset timer to default value 
-    func resetToDefault() {
+    public func resetToDefault() {
         container.executive.suspand()
         container.counter.resetToDefaultValue()
         state.currentTimerState = .restarted
