@@ -78,6 +78,11 @@ public class MagicTimer: MGLogable {
     /// State of time counting.
     public var countMode: MGCountMode = .stopWatch
     
+    /// The current state of the timer.
+    public var currentState: MGStateManager.TimerState {
+        return state.currentTimerState
+    }
+    
     public init() {
         self.container = MGTimerContainer(counter: MGCounter(), executive: MGTimerExecutive())
         self.backgroundCalculator = MGBackgroundCalculator()
