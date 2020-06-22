@@ -25,7 +25,7 @@ class MGTimerContainer: MGLogable {
 }
 
 /// Methods for observe time interval from timer broker.
-public protocol MGTimerBrokerDelegate: AnyObject {
+public protocol MagicTimerDelegate: AnyObject {
     func observeTimeInterval(_ ti: TimeInterval)
 }
 /// The timer counting mode.
@@ -39,14 +39,14 @@ public enum MGCountMode {
  Every time calculation or any commands are managing in MGTimerBroker that contains counter, executive and background time calculator.
  */
 
-public class MGTimer: MGLogable {
+public class MagicTimer: MGLogable {
         
     private var container: MGTimerContainer
     private var backgroundCalculator: MGBackgroundCalculableBehavior
-    private(set) var state: MGStateManager = .shared
+    private var state: MGStateManager = .shared
     
-    /// The object that acts as the delegate of the MGTimerBroker.
-    public weak var delegate: MGTimerBrokerDelegate?
+    /// The object that acts as the delegate of the MagicTimer..
+    public weak var delegate: MagicTimerDelegate?
     
     /// Set value to counter defultValue.
     public var defultValue: TimeInterval = 0 {
