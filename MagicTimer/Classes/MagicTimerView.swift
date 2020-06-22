@@ -13,23 +13,25 @@ import UIKit
 open class MagicTimerView: UIView {
     
     /// Timer broker that bridge between timer logic and view.
-    private var broker: MGTimer = .init()
+    private var broker: MagicTimer = .init()
     /// Formatter that format time interval to string.
     private var formatter: MGFormatter = MGStandardTimerFormatter()
     /// Elappsed time of timer.
     private(set) var elapsedTime: TimeInterval?
+
+    public weak var delegate: MagicTimerViewDelegate?
+    
     /// The current state of the timer.
     public var currentState: MGStateManager.TimerState {
-        return broker.state.currentTimerState
+        return broker.currentState
     }
+    
     /// The color of the timer label.
     @IBInspectable public var textColor: UIColor! {
         willSet {
             timerLabel.textColor = newValue
         }
     }
-    
-    public weak var delegate: MagicTimerViewDelegate?
     
     /// Font size of timer label. just available in interface builder. Default value is 18.
     @available(*, unavailable, message: "Just available in interface builder")
@@ -256,7 +258,7 @@ open class MagicTimerView: UIView {
     }
     
 }
-extension MagicTimerView: MGTimerBrokerDelegate {
+extension MagicTimerView: MagicTimerDelegate {
     
     /// Called when broker send the elapsed time.
     public func observeTimeInterval(_ ti: TimeInterval) {
