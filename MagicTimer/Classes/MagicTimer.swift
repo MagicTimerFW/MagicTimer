@@ -45,6 +45,9 @@ public class MagicTimer: MGLogable {
     private var backgroundCalculator: MGBackgroundCalculableBehavior
     private var state: MGStateManager = .shared
     
+    /// Timer state callback
+    public var didStateChange: ((MGStateManager.TimerState) -> Void)?
+    
     /// The object that acts as the delegate of the MagicTimer..
     public weak var delegate: MagicTimerDelegate?
     
@@ -135,6 +138,8 @@ public class MagicTimer: MGLogable {
             // Check if totalCountedValue is valid or not.
             guard self.container.counter.totalCountedValue > 0 else {
                 self.container.executive.suspand()
+                self.didStateChange?(MGStateManager.TimerState.stopped)
+
                 return
             }
             // Subtract effectiveValue from totalCountedValue.
@@ -159,12 +164,16 @@ public class MagicTimer: MGLogable {
             countUp()
         }
         state.currentTimerState = .fired
+        didStateChange?(MGStateManager.TimerState.fired)
+
         log(message: "timer started")
     }
     /// Stop timer counting.
     public func stop() {
         container.executive.suspand()
         state.currentTimerState = .stopped
+        didStateChange?(MGStateManager.TimerState.stopped)
+
         log(message: "timer stopped")
     }
     /// Reset timer to zero
@@ -172,6 +181,8 @@ public class MagicTimer: MGLogable {
         container.executive.suspand()
         container.counter.resetTotalCounted()
         state.currentTimerState = .restarted
+        didStateChange?(MGStateManager.TimerState.restarted)
+
         log(message: "timer restarted")
         
     }
@@ -180,6 +191,7 @@ public class MagicTimer: MGLogable {
         container.executive.suspand()
         container.counter.resetToDefaultValue()
         state.currentTimerState = .restarted
+        didStateChange?(MGStateManager.TimerState.restarted)
         log(message: "timer restarted to default")
 
     }
