@@ -130,6 +130,12 @@ The mode of the timer. default is stop watch.
 ```swift
 public var mode: MGCountMode { get set }
 ```
+### `didStateChange`
+A callback that notifies when timer state did change.
+```swift
+public var didStateChange: ((MGStateManager.TimerState) -> Void)?
+```
+
 # Obsreve 
 You can observe elapsed time in two ways. <br />
 **First**: using `elapsedTime` property.
