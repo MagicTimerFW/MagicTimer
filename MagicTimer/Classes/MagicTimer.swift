@@ -45,7 +45,7 @@ public class MagicTimer: MGLogable {
     public var didStateChange: ((MGStateManager.TimerState) -> Void)?
     
     /// A elpsed time that can observe
-    public var observeElapsedTime: (\ -> Void)?
+    public var observeElapsedTime: ((TimeInterval) -> Void)?
     
     /// Set value to counter defultValue.
     public var defultValue: TimeInterval = 0 {
