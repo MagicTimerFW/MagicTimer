@@ -24,10 +24,6 @@ class MGTimerContainer: MGLogable {
     }
 }
 
-/// Methods for observe time interval from timer broker.
-public protocol MagicTimerDelegate: AnyObject {
-    func observeTimeInterval(_ ti: TimeInterval)
-}
 /// The timer counting mode.
 public enum MGCountMode {
     case stopWatch
@@ -36,7 +32,7 @@ public enum MGCountMode {
 /**
  A broker between contianer and view.
  
- Every time calculation or any commands are managing in MGTimerBroker that contains counter, executive and background time calculator.
+ Every time calculation or any commands are managing in MagicTimer that contains counter, executive and background time calculator.
  */
 
 public class MagicTimer: MGLogable {
@@ -48,8 +44,8 @@ public class MagicTimer: MGLogable {
     /// Timer state callback
     public var didStateChange: ((MGStateManager.TimerState) -> Void)?
     
-    /// The object that acts as the delegate of the MagicTimer..
-    public weak var delegate: MagicTimerDelegate?
+    /// A elpsed time that can observe
+    public var observeElapsedTime: (\ -> Void)?
     
     /// Set value to counter defultValue.
     public var defultValue: TimeInterval = 0 {
@@ -120,7 +116,7 @@ public class MagicTimer: MGLogable {
 
         container.executive.observeValue = {
             self.container.counter.add()
-            self.delegate?.observeTimeInterval(self.container.counter.totalCountedValue)
+            self.observeElapsedTime?(self.container.counter.totalCountedValue)
         }
     }
   
@@ -145,7 +141,7 @@ public class MagicTimer: MGLogable {
             // Subtract effectiveValue from totalCountedValue.
             self.container.counter.subtract()
             // Tell the delegate totalCountedValue(elapsed time).
-            self.delegate?.observeTimeInterval(self.container.counter.totalCountedValue)
+            self.observeElapsedTime?(self.container.counter.totalCountedValue)
         }
     }
     
