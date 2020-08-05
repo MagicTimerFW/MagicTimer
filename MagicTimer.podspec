@@ -8,8 +8,8 @@
 
 Pod::Spec.new do |s|
   s.name             = 'MagicTimer'
-  s.version          = '0.1.8'
-  s.summary          = 'Magic Timer is a label timer that deals with schedule timer'
+  s.version          = '0.1.9'
+  s.summary          = 'MagicTimer is a UIView based timer that displays a countdown or count-up timer.'
 
   s.homepage         = 'https://github.com/sadeghgoo/MagicTimer'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
