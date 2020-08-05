@@ -152,7 +152,7 @@ open class MagicTimerView: UIView {
         
         initialSubView()
         setConstraint()
-        confromDelegate()
+        observeTime()
         setInitialValue()
     }
     
@@ -161,7 +161,7 @@ open class MagicTimerView: UIView {
         
         initialSubView()
         setConstraint()
-        confromDelegate()
+        observeTime()
         setInitialValue()
         
     }
@@ -171,8 +171,14 @@ open class MagicTimerView: UIView {
         
     }
     /// Called when interface is initialized. Override this method for conforming delegate.
-    func confromDelegate() {
-        broker.delegate = self
+    func observeTime() {
+        broker.observeElapsedTime = { timeInterval in
+            self.elapsedTime = timeInterval
+            DispatchQueue.main.async {
+                self.timerLabel.text = self.formatter.converToValidFormat(ti: timeInterval)
+                self.delegate?.timerElapsedTimeDidChange(timer: self, elapsedTime: timeInterval)
+            }
+        }
     }
     
     public override class var layerClass: AnyClass {
@@ -265,18 +271,7 @@ open class MagicTimerView: UIView {
     }
     
 }
-extension MagicTimerView: MagicTimerDelegate {
-    
-    /// Called when broker send the elapsed time.
-    public func observeTimeInterval(_ ti: TimeInterval) {
-        self.elapsedTime = ti
-        DispatchQueue.main.async {
-            self.timerLabel.text = self.formatter.converToValidFormat(ti: ti)
-            self.delegate?.timerElapsedTimeDidChange(timer: self, elapsedTime: ti)
-        }
-    }
-    
-}
+
 extension MagicTimerView: StandardConstraintableView {
     
     /// Set constraint of any element in object.  Called in init after initialSubView method.
