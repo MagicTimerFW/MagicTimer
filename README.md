@@ -136,7 +136,7 @@ A callback that notifies when timer state did change.
 public var didStateChange: ((MGStateManager.TimerState) -> Void)?
 ```
 
-# Obsreve 
+# Observe 
 You can observe elapsed time in two ways. <br />
 **First**: using `elapsedTime` property.
 ```swift
