@@ -112,7 +112,6 @@ public class MagicTimer: MGLogable {
     }
     
     private func countUp() {
-        log(message: "Count mode is \(countMode)")
 
         container.executive.observeValue = {
             self.container.counter.add()
@@ -121,7 +120,6 @@ public class MagicTimer: MGLogable {
     }
   
     private func countDown(fromSeconds: TimeInterval) {
-        log(message: "Count mode is \(countMode)")
         // Checking if defaultValue plus fromSeconds not going to invalid format(negative seconds).
         guard (defultValue + fromSeconds).truncatingRemainder(dividingBy: effectiveValue ) == 0 else {
             fatalError("The time does not leading to valid format. Use valid effetiveValue")
