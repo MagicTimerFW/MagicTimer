@@ -1,8 +1,8 @@
 
 import Foundation
 
-/// A type that any date formatter can conform
-protocol MGFormatter {
+/// A type that any date formatter should conform
+public protocol MGTimeFormatter {
     /// Convert time interval to String format
     /// - Parameter ti: elapsed time
     func converToValidFormat(ti: TimeInterval) -> String?
@@ -18,7 +18,7 @@ enum MGTimeUnit: Int {
     case milliSeconds = 1000
 }
 
-class MGStandardTimerFormatter: DateComponentsFormatter, MGFormatter {
+class MGStandardTimerFormatter: DateComponentsFormatter, MGTimeFormatter {
        
     override init() {
         super.init()
