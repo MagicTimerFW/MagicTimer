@@ -15,7 +15,7 @@ open class MagicTimerView: UIView {
     /// Timer broker that bridge between timer logic and view.
     private var broker: MagicTimer = .init()
     /// Formatter that format time interval to string.
-    private var formatter: MGFormatter = MGStandardTimerFormatter()
+    public var formatter: MGTimeFormatter = MGStandardTimerFormatter()
     /// Elappsed time of timer.
     private(set) var elapsedTime: TimeInterval?
 
