@@ -22,6 +22,7 @@ MagicTimer is a UIView based timer that displays a countdown or count-up timer.<
 ## Features
 - [x] Fully customizable design 
 - [x] Support stop watch / count down mode
+- [x] Support custom time formatter
 - [x] Suppport in background time calculation  
 - [x] Modifable time interval / step
 - [x] Fully Managable: start, pause, reset
@@ -135,7 +136,28 @@ A callback that notifies when timer state did change.
 ```swift
 public var didStateChange: ((MGStateManager.TimerState) -> Void)?
 ```
+# Formatter
+MagicTimerView can accept custom time formatter. Any time formatter should confrom `MGTimeFormatter`.
+### `MGTimeFormatter`
+```swift
+public protocol MGTimeFormatter
+```
+Sample custom time formatter
+```swift
 
+class CustomTimeFormatter: MGTimeFormatter {
+    let dateComponent = DateComponentsFormatter()
+    
+    init() {
+        dateComponent.unitsStyle = .positional
+        dateComponent.allowedUnits = [.second]
+    }
+    func converToValidFormat(ti: TimeInterval) -> String? {
+        dateComponent.string(from: ti)
+    }
+}
+
+```
 # Observe 
 You can observe elapsed time in two ways. <br />
 **First**: using `elapsedTime` property.
