@@ -12,6 +12,8 @@ protocol MGBackgroundCalculableBehavior: MGObservebaleTimeInterval {
     func calculateDateDiffrence() -> TimeInterval?
     /// Set timer firing date
     func setTimeFiredDate(_ value: Date)
+    /// Current state of timer
+    var state: MagicTimerState { get set }
 }
 
 class MGBackgroundCalculator: MGBackgroundCalculableBehavior, MGLogable {
@@ -20,6 +22,7 @@ class MGBackgroundCalculator: MGBackgroundCalculableBehavior, MGLogable {
     public var isActiveBackgroundMode: Bool = false
     public var observe: ((TimeInterval) -> Void)?
     var isFirstForegroundNotification: Bool = true
+    public var state: MagicTimerState = .none
     
     init() {
 
@@ -32,7 +35,7 @@ class MGBackgroundCalculator: MGBackgroundCalculableBehavior, MGLogable {
         /// Check if background mode is activated
         guard isActiveBackgroundMode else { return }
         
-        if  MGStateManager.shared.currentTimerState == .fired {
+        if  state == .fired {
             /// Calculate time diffrence between two date
             if let timeInterval = calculateDateDiffrence() {
                 observe!(timeInterval)
