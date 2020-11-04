@@ -22,11 +22,11 @@ open class MagicTimerView: UIView {
     public weak var delegate: MagicTimerViewDelegate?
     
     /// The current state of the timer.
-    public var currentState: MGStateManager.TimerState {
+    public var currentState: MagicTimerState {
         return broker.currentState
     }
     /// Timer state callback
-    public var didStateChange: ((MGStateManager.TimerState) -> Void)?
+    public var didStateChange: ((MagicTimerState) -> Void)?
 
     /// The color of the timer label.
     @IBInspectable public var textColor: UIColor! {
@@ -247,13 +247,13 @@ open class MagicTimerView: UIView {
     /// Begins updates to the timer’s display.
     public func startCounting() {
         broker.start()
-        didStateChange?(MGStateManager.TimerState.fired)
+        didStateChange?(.fired)
     }
     
     /// Stops updates to the timer’s display.
     public func stopCounting() {
         broker.stop()
-        didStateChange?(MGStateManager.TimerState.stopped)
+        didStateChange?(.stopped)
 
     }
     
@@ -261,13 +261,13 @@ open class MagicTimerView: UIView {
     public func reset() {
         timerLabel.text = formatter.converToValidFormat(ti: 0)
         broker.reset()
-        didStateChange?(MGStateManager.TimerState.restarted)
+        didStateChange?(.restarted)
     }
     /// Reset timer to the default value.
     public func resetToDefault() {
         timerLabel.text = formatter.converToValidFormat(ti: broker.defultValue)
         broker.resetToDefault()
-        didStateChange?(MGStateManager.TimerState.restarted)
+        didStateChange?(.restarted)
     }
     
 }
