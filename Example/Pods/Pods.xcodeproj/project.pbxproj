@@ -23,6 +23,7 @@
 		72D40F4424859C5600C4B442 /* TimeInterval+Extesnion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D40F3724859C5600C4B442 /* TimeInterval+Extesnion.swift */; };
 		72D40F4524859C5600C4B442 /* MGStandardTimerFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D40F3824859C5600C4B442 /* MGStandardTimerFormatter.swift */; };
 		72D40F4624859C5600C4B442 /* MagicTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D40F3924859C5600C4B442 /* MagicTimer.swift */; };
+		72D45E2125E811A800DD951B /* MagicTimerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D45E2025E811A800DD951B /* MagicTimerState.swift */; };
 		75EC5240F77BDE0402C2C17B6098CDDF /* Pods-MagicTimer_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 3D47E0DBFB29609E26C6D0796560A242 /* Pods-MagicTimer_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8092F8AFBE1883868FA8B2C249BCE11D /* MagicTimer-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FED7E8C2AE7494BA93B9F4A31A56972 /* MagicTimer-dummy.m */; };
 		9AD3C56DA41D21D22AD01D74B6E3867F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
@@ -75,6 +76,7 @@
 		72D40F3724859C5600C4B442 /* TimeInterval+Extesnion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Extesnion.swift"; sourceTree = "<group>"; };
 		72D40F3824859C5600C4B442 /* MGStandardTimerFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MGStandardTimerFormatter.swift; sourceTree = "<group>"; };
 		72D40F3924859C5600C4B442 /* MagicTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagicTimer.swift; sourceTree = "<group>"; };
+		72D45E2025E811A800DD951B /* MagicTimerState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagicTimerState.swift; sourceTree = "<group>"; };
 		740D96F0EC33398D55AC080246B4D515 /* Pods-MagicTimer_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-MagicTimer_Tests.modulemap"; sourceTree = "<group>"; };
 		7631C71E2330FB3AE79C2349C8609172 /* Pods-MagicTimer_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-MagicTimer_Tests-umbrella.h"; sourceTree = "<group>"; };
 		95CDD39AFBE1A02209400D46FF16D2A4 /* MagicTimer.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = MagicTimer.modulemap; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 				72D40F3124859C5600C4B442 /* MagicTimerView.swift */,
 				72D40F3224859C5600C4B442 /* MGStateManager.swift */,
 				72D40F3324859C5600C4B442 /* MGCounter.swift */,
+				72D45E2025E811A800DD951B /* MagicTimerState.swift */,
 				72D40F3424859C5600C4B442 /* MGObservable.swift */,
 				72D40F3524859C5600C4B442 /* MGTimerExecutive.swift */,
 				72D40F3624859C5600C4B442 /* MagicTimerViewDelegate.swift */,
@@ -427,6 +430,7 @@
 				72D40F4124859C5600C4B442 /* MGObservable.swift in Sources */,
 				72D40F3C24859C5600C4B442 /* MGBackgroundCalculator.swift in Sources */,
 				72D40F3E24859C5600C4B442 /* MagicTimerView.swift in Sources */,
+				72D45E2125E811A800DD951B /* MagicTimerState.swift in Sources */,
 				72D40F3F24859C5600C4B442 /* MGStateManager.swift in Sources */,
 				72D40F4224859C5600C4B442 /* MGTimerExecutive.swift in Sources */,
 				72D40F4524859C5600C4B442 /* MGStandardTimerFormatter.swift in Sources */,
