@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'MagicTimer'
-  s.version          = '1.0.1'
+  s.version          = '1.0.2'
   s.summary          = 'MagicTimer is a UIView based timer that displays a countdown or count-up timer.'
 
   s.homepage         = 'https://github.com/sadeghgoo/MagicTimer'
