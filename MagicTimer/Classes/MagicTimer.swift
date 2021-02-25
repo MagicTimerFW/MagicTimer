@@ -11,19 +11,6 @@ protocol StandardConstraintableView {
     func initialSubView()
 }
 
-/// The container that contains counter and executive.
-class MGTimerContainer: MGLogable {
-    
-    var counter: MGCounterBehavior
-    var executive: MGObservableTimerBehavior
-    
-    init(counter: MGCounterBehavior, executive: MGObservableTimerBehavior) {
-        self.counter = counter
-        self.executive = executive
-        log(message: "initialized")
-    }
-}
-
 /// The timer counting mode.
 public enum MGCountMode {
     case stopWatch
@@ -37,11 +24,13 @@ public enum MGCountMode {
 
 public class MagicTimer: MGLogable {
         
-    private var container: MGTimerContainer
+    private var counter: MGCounterBehavior
+    private var executive: MGObservableTimerBehavior
     private var backgroundCalculator: MGBackgroundCalculableBehavior
+    
     private var state: MagicTimerState = .none {
         willSet {
-            container.executive.state = newValue
+            executive.state = newValue
             backgroundCalculator.state = newValue
             
         }
@@ -57,21 +46,21 @@ public class MagicTimer: MGLogable {
     public var defultValue: TimeInterval = 0 {
         willSet {
             let positiveValue = max(0, newValue)
-            container.counter.setDefaultValue(positiveValue)
+            counter.setDefaultValue(positiveValue)
         }
     }
     /// Set value to counter effectiveValue.
     public var effectiveValue: TimeInterval = 1 {
         willSet {
             let positiveValue = max(0, newValue)
-            container.counter.setEffectiveValue(positiveValue)
+            counter.setEffectiveValue(positiveValue)
         }
     }
     /// Set time interval to executive timeInerval.
     public var timeInterval: TimeInterval = 1  {
         willSet {
             let positiveValue = max(0, newValue)
-            container.executive.setTimeInterval(positiveValue)
+            executive.setTimeInterval(positiveValue)
         }
     }
     /// Set value to  backgroundCalculator isActiveBackgroundMode property.
@@ -89,8 +78,9 @@ public class MagicTimer: MGLogable {
     }
     
     public init() {
-        self.container = MGTimerContainer(counter: MGCounter(), executive: MGTimerExecutive())
-        self.backgroundCalculator = MGBackgroundCalculator()
+        counter = MGCounter()
+        executive = MGTimerExecutive()
+        backgroundCalculator = MGBackgroundCalculator()
         
         backgroundCalculator.observe = { elapsedTime in
             
@@ -103,25 +93,25 @@ public class MagicTimer: MGLogable {
         switch countMode {
         case .stopWatch:
             // Set totalCountedValue to all elpased time plus time in background.
-             container.counter.setTotalCountedValue(elapsedTime)
+             counter.setTotalCountedValue(elapsedTime)
         case let .countDown(fromSeconds: countDownSeconds):
             
             let subtraction = countDownSeconds - elapsedTime
             // Checking elapsed time in background wasn't negeative.
             if subtraction.isPositive {
                 // Set totalCountedValue to total time minus elapsed time in background.
-                container.counter.setTotalCountedValue(subtraction)
+                counter.setTotalCountedValue(subtraction)
             } else {
-                container.counter.setTotalCountedValue(1)
+                counter.setTotalCountedValue(1)
             }
         }
     }
     
     private func countUp() {
 
-        container.executive.observeValue = {
-            self.container.counter.add()
-            self.observeElapsedTime?(self.container.counter.totalCountedValue)
+        executive.observeValue = {
+            self.counter.add()
+            self.observeElapsedTime?(self.counter.totalCountedValue)
         }
     }
   
@@ -131,28 +121,28 @@ public class MagicTimer: MGLogable {
             fatalError("The time does not leading to valid format. Use valid effetiveValue")
         }
         
-        container.counter.setTotalCountedValue(fromSeconds)
+        counter.setTotalCountedValue(fromSeconds)
         
         // Every timeInterval observe value is called.
-        container.executive.observeValue = {
+        executive.observeValue = {
             // Check if totalCountedValue is valid or not.
-            guard self.container.counter.totalCountedValue > 0 else {
-                self.container.executive.suspand()
+            guard self.counter.totalCountedValue > 0 else {
+                self.executive.suspand()
                 self.didStateChange?(.stopped)
 
                 return
             }
             // Subtract effectiveValue from totalCountedValue.
-            self.container.counter.subtract()
+            self.counter.subtract()
             // Tell the delegate totalCountedValue(elapsed time).
-            self.observeElapsedTime?(self.container.counter.totalCountedValue)
+            self.observeElapsedTime?(self.counter.totalCountedValue)
         }
     }
     
     /// Observe counting mode and start counting.
     public func start() {
         
-        container.executive.start {
+        executive.start {
             // Set current date to timer firing date(for calculate background elapsed time). When set the time is not fired.
             self.backgroundCalculator.setTimeFiredDate(Date())
         }
@@ -170,7 +160,7 @@ public class MagicTimer: MGLogable {
     }
     /// Stop timer counting.
     public func stop() {
-        container.executive.suspand()
+        executive.suspand()
         state = .stopped
         didStateChange?(.stopped)
 
@@ -178,8 +168,8 @@ public class MagicTimer: MGLogable {
     }
     /// Reset timer to zero
     public func reset() {
-        container.executive.suspand()
-        container.counter.resetTotalCounted()
+        executive.suspand()
+        counter.resetTotalCounted()
         state = .restarted
         didStateChange?(.restarted)
 
@@ -188,8 +178,8 @@ public class MagicTimer: MGLogable {
     }
     /// Reset timer to default value 
     public func resetToDefault() {
-        container.executive.suspand()
-        container.counter.resetToDefaultValue()
+        executive.suspand()
+        counter.resetToDefaultValue()
         state = .restarted
         didStateChange?(.restarted)
         log(message: "timer restarted to default")
