@@ -34,9 +34,9 @@ class MGStandardTimerFormatter: DateComponentsFormatter, MGTimeFormatter {
     func converToValidFormat(ti: TimeInterval) -> String? {
         switch ti {
         case let x where Int(x) >= MGTimeUnit.hour.rawValue:
-            allowedUnits = [.minute, .second, .hour]
+            allowedUnits = [.hour, .minute, .second]
         case let x where Int(x) <= MGTimeUnit.hour.rawValue:
-            allowedUnits = [.minute, .second, .nanosecond]
+            allowedUnits = [.minute, .second]
         default:
             break
         }
