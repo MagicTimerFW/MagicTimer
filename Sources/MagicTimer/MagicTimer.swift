@@ -1,6 +1,5 @@
 import Foundation
-import UIKit
-
+import MagicTimerCore
 
 @available(*, unavailable, renamed: "MGTimerMode")
 /// The timer counting mode.
@@ -101,7 +100,6 @@ public class MagicTimer {
             self.calclulateBackgroundTime(elapsedTime: elapsedTime)
         }
         
-        log(message: "initialized")
     }
     // Calculate time in background
     private func calclulateBackgroundTime(elapsedTime: TimeInterval) {
@@ -171,15 +169,12 @@ public class MagicTimer {
         lastState = .fired
         lastStateDidChangeHandler?(.fired)
 
-        log(message: "timer started")
     }
     /// Stop timer counting.
     public func stop() {
         executive.suspand()
         lastState = .stopped
         lastStateDidChangeHandler?(.stopped)
-
-        log(message: "timer stopped")
     }
     /// Reset timer to zero
     public func reset() {
@@ -187,8 +182,6 @@ public class MagicTimer {
         counter.resetTotalCounted()
         lastState = .restarted
         lastStateDidChangeHandler?(.restarted)
-
-        log(message: "timer restarted")
         
     }
     /// Reset timer to default value
@@ -197,8 +190,6 @@ public class MagicTimer {
         counter.resetToDefaultValue()
         lastState = .restarted
         lastStateDidChangeHandler?(.restarted)
-        log(message: "timer restarted to default")
-
     }
 }
 
