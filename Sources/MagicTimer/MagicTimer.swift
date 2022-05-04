@@ -30,7 +30,7 @@ public class MagicTimer {
     private var executive: MGExecutiveBehavior
     private var backgroundCalculator: MGBackgroundCalculableBehavior
 
-    open private(set) var lastState: MagicTimerState = .none
+    public private(set) var lastState: MagicTimerState = .none
     
     @available(*, unavailable, renamed: "lastStateDidChangeHandler")
     /// Timer state callback
