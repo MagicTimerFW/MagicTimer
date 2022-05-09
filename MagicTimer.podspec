@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.version          = '1.0.3'
   s.summary          = 'MagicTimer is a UIView based timer that displays a countdown or count-up timer.'
 
-  s.homepage         = 'https://github.com/sadeghgoo/MagicTimer'
+  s.homepage         = 'https://github.com/MagicTimerFW/MagicTimer'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'sadeghgoo' => 'sadeghitunes2@gmail.com' }
   s.source           = { :git => 'https://github.com/MagicTimerFW/MagicTimer.git', :tag => s.version.to_s }
