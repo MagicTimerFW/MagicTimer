@@ -10,20 +10,6 @@
 		04B15C78D63ACB404FC55D2376345AE6 /* MagicTimer-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 5173E17109E1212EE4CD2CFDDB2FA2B0 /* MagicTimer-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		27E7932D3C599BB7C38283642B286891 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
 		4B67F27A9FCBEF931193142F39BD7226 /* Pods-MagicTimer_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDBEBDA37A84A2B6168A755E7228EE4 /* Pods-MagicTimer_Example-dummy.m */; };
-		72D40F3A24859C5600C4B442 /* MGLogable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D40F2D24859C5600C4B442 /* MGLogable.swift */; };
-		72D40F3B24859C5600C4B442 /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D40F2E24859C5600C4B442 /* UIFont+Extension.swift */; };
-		72D40F3C24859C5600C4B442 /* MGBackgroundCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D40F2F24859C5600C4B442 /* MGBackgroundCalculator.swift */; };
-		72D40F3D24859C5600C4B442 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D40F3024859C5600C4B442 /* Int+Extension.swift */; };
-		72D40F3E24859C5600C4B442 /* MagicTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D40F3124859C5600C4B442 /* MagicTimerView.swift */; };
-		72D40F3F24859C5600C4B442 /* MGStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D40F3224859C5600C4B442 /* MGStateManager.swift */; };
-		72D40F4024859C5600C4B442 /* MGCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D40F3324859C5600C4B442 /* MGCounter.swift */; };
-		72D40F4124859C5600C4B442 /* MGObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D40F3424859C5600C4B442 /* MGObservable.swift */; };
-		72D40F4224859C5600C4B442 /* MGTimerExecutive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D40F3524859C5600C4B442 /* MGTimerExecutive.swift */; };
-		72D40F4324859C5600C4B442 /* MagicTimerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D40F3624859C5600C4B442 /* MagicTimerViewDelegate.swift */; };
-		72D40F4424859C5600C4B442 /* TimeInterval+Extesnion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D40F3724859C5600C4B442 /* TimeInterval+Extesnion.swift */; };
-		72D40F4524859C5600C4B442 /* MGStandardTimerFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D40F3824859C5600C4B442 /* MGStandardTimerFormatter.swift */; };
-		72D40F4624859C5600C4B442 /* MagicTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D40F3924859C5600C4B442 /* MagicTimer.swift */; };
-		72D45E2125E811A800DD951B /* MagicTimerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D45E2025E811A800DD951B /* MagicTimerState.swift */; };
 		75EC5240F77BDE0402C2C17B6098CDDF /* Pods-MagicTimer_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 3D47E0DBFB29609E26C6D0796560A242 /* Pods-MagicTimer_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8092F8AFBE1883868FA8B2C249BCE11D /* MagicTimer-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FED7E8C2AE7494BA93B9F4A31A56972 /* MagicTimer-dummy.m */; };
 		9AD3C56DA41D21D22AD01D74B6E3867F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
@@ -63,20 +49,6 @@
 		5348EC6F9BEBB04D91F7A131A1764A7A /* Pods-MagicTimer_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MagicTimer_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		58C6E77B935B00A75CEACEB684DCFD97 /* MagicTimer.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = MagicTimer.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		68EDE36A3DAA66E4A151287FC148A962 /* Pods-MagicTimer_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-MagicTimer_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
-		72D40F2D24859C5600C4B442 /* MGLogable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MGLogable.swift; sourceTree = "<group>"; };
-		72D40F2E24859C5600C4B442 /* UIFont+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
-		72D40F2F24859C5600C4B442 /* MGBackgroundCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MGBackgroundCalculator.swift; sourceTree = "<group>"; };
-		72D40F3024859C5600C4B442 /* Int+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
-		72D40F3124859C5600C4B442 /* MagicTimerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagicTimerView.swift; sourceTree = "<group>"; };
-		72D40F3224859C5600C4B442 /* MGStateManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MGStateManager.swift; sourceTree = "<group>"; };
-		72D40F3324859C5600C4B442 /* MGCounter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MGCounter.swift; sourceTree = "<group>"; };
-		72D40F3424859C5600C4B442 /* MGObservable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MGObservable.swift; sourceTree = "<group>"; };
-		72D40F3524859C5600C4B442 /* MGTimerExecutive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MGTimerExecutive.swift; sourceTree = "<group>"; };
-		72D40F3624859C5600C4B442 /* MagicTimerViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagicTimerViewDelegate.swift; sourceTree = "<group>"; };
-		72D40F3724859C5600C4B442 /* TimeInterval+Extesnion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Extesnion.swift"; sourceTree = "<group>"; };
-		72D40F3824859C5600C4B442 /* MGStandardTimerFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MGStandardTimerFormatter.swift; sourceTree = "<group>"; };
-		72D40F3924859C5600C4B442 /* MagicTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagicTimer.swift; sourceTree = "<group>"; };
-		72D45E2025E811A800DD951B /* MagicTimerState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagicTimerState.swift; sourceTree = "<group>"; };
 		740D96F0EC33398D55AC080246B4D515 /* Pods-MagicTimer_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-MagicTimer_Tests.modulemap"; sourceTree = "<group>"; };
 		7631C71E2330FB3AE79C2349C8609172 /* Pods-MagicTimer_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-MagicTimer_Tests-umbrella.h"; sourceTree = "<group>"; };
 		95CDD39AFBE1A02209400D46FF16D2A4 /* MagicTimer.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = MagicTimer.modulemap; sourceTree = "<group>"; };
@@ -162,7 +134,6 @@
 		4F058576C2870CA1012BCF598C8B4AE1 /* MagicTimer */ = {
 			isa = PBXGroup;
 			children = (
-				72D40F2C24859C5600C4B442 /* Classes */,
 				B78755F16CC26F0D1AB3FEEC1F99B960 /* Pod */,
 				E1D574155B3F3EA7DAE6A588A82D2F0A /* Support Files */,
 			);
@@ -176,28 +147,6 @@
 				4F058576C2870CA1012BCF598C8B4AE1 /* MagicTimer */,
 			);
 			name = "Development Pods";
-			sourceTree = "<group>";
-		};
-		72D40F2C24859C5600C4B442 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				72D40F2D24859C5600C4B442 /* MGLogable.swift */,
-				72D40F2E24859C5600C4B442 /* UIFont+Extension.swift */,
-				72D40F2F24859C5600C4B442 /* MGBackgroundCalculator.swift */,
-				72D40F3024859C5600C4B442 /* Int+Extension.swift */,
-				72D40F3124859C5600C4B442 /* MagicTimerView.swift */,
-				72D40F3224859C5600C4B442 /* MGStateManager.swift */,
-				72D40F3324859C5600C4B442 /* MGCounter.swift */,
-				72D45E2025E811A800DD951B /* MagicTimerState.swift */,
-				72D40F3424859C5600C4B442 /* MGObservable.swift */,
-				72D40F3524859C5600C4B442 /* MGTimerExecutive.swift */,
-				72D40F3624859C5600C4B442 /* MagicTimerViewDelegate.swift */,
-				72D40F3724859C5600C4B442 /* TimeInterval+Extesnion.swift */,
-				72D40F3824859C5600C4B442 /* MGStandardTimerFormatter.swift */,
-				72D40F3924859C5600C4B442 /* MagicTimer.swift */,
-			);
-			name = Classes;
-			path = MagicTimer/Classes;
 			sourceTree = "<group>";
 		};
 		843F9492DFEB16FAA6D4645C6FB1F103 /* Targets Support Files */ = {
@@ -423,21 +372,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				72D40F3D24859C5600C4B442 /* Int+Extension.swift in Sources */,
-				72D40F4324859C5600C4B442 /* MagicTimerViewDelegate.swift in Sources */,
-				72D40F4624859C5600C4B442 /* MagicTimer.swift in Sources */,
-				72D40F3B24859C5600C4B442 /* UIFont+Extension.swift in Sources */,
-				72D40F4124859C5600C4B442 /* MGObservable.swift in Sources */,
-				72D40F3C24859C5600C4B442 /* MGBackgroundCalculator.swift in Sources */,
-				72D40F3E24859C5600C4B442 /* MagicTimerView.swift in Sources */,
-				72D45E2125E811A800DD951B /* MagicTimerState.swift in Sources */,
-				72D40F3F24859C5600C4B442 /* MGStateManager.swift in Sources */,
-				72D40F4224859C5600C4B442 /* MGTimerExecutive.swift in Sources */,
-				72D40F4524859C5600C4B442 /* MGStandardTimerFormatter.swift in Sources */,
-				72D40F3A24859C5600C4B442 /* MGLogable.swift in Sources */,
-				72D40F4024859C5600C4B442 /* MGCounter.swift in Sources */,
 				8092F8AFBE1883868FA8B2C249BCE11D /* MagicTimer-dummy.m in Sources */,
-				72D40F4424859C5600C4B442 /* TimeInterval+Extesnion.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
