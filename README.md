@@ -254,6 +254,6 @@ public var backgroundImage: UIImage? { get set }
 
 ```
 ## Author
-sadegh bitarafan(sadeghgoo), sadeghqbitarafan@gmail.com
+Sadeq Bitarafan(sadeghgoo), sadeqbitarafan@gmail.com
 ## License
 MagicTimer is available under the MIT license. See the LICENSE file for more info.
