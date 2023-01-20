@@ -1,0 +1,25 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "MagicTimerCommon",
+        "repositoryURL": "https://github.com/MagicTimerFW/MagicTimerCommon.git",
+        "state": {
+          "branch": "main",
+          "revision": "f2ee82927667250a0d7206c472696e4642bec4da",
+          "version": null
+        }
+      },
+      {
+        "package": "MagicTimerCore",
+        "repositoryURL": "https://github.com/MagicTimerFW/MagicTimerCore",
+        "state": {
+          "branch": "main",
+          "revision": "a65c5ef7fcc56c75044e84d3b7bbfc6b1f7d9f30",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}

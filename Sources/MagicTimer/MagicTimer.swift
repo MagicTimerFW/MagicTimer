@@ -91,17 +91,18 @@ public class MagicTimer {
         return lastState
     }
     
-    public init() {
-        counter = MGCounter()
-        executive = MGTimerExecutive()
-        backgroundCalculator = MGBackgroundCalculator()
-        
-        backgroundCalculator.backgroundTimeCalculateHandler = { elapsedTime in
+    public init(counter: MGCounterBehavior = MGCounter(),
+                executive: MGExecutiveBehavior = MGTimerExecutive(),
+                backgroundCalculator: MGBackgroundCalculableBehavior = MGBackgroundCalculator()) {
+        self.counter = counter
+        self.executive = executive
+        self.backgroundCalculator = backgroundCalculator
+        self.backgroundCalculator.backgroundTimeCalculateHandler = { elapsedTime in
             self.calclulateBackgroundTime(elapsedTime: elapsedTime)
         }
-        
     }
-    // Calculate time in background
+    
+    // Calculate time in background.
     private func calclulateBackgroundTime(elapsedTime: TimeInterval) {
         switch countMode {
         case .stopWatch:
@@ -121,7 +122,6 @@ public class MagicTimer {
     }
     
     private func countUp() {
-
         executive.scheduleTimerHandler = {
             self.counter.add()
             self.elapsedTimeDidChangeHandler?(self.counter.totalCountedValue)
@@ -154,7 +154,6 @@ public class MagicTimer {
     
     /// Observe counting mode and start counting.
     public func start() {
-        
         executive.start {
             // Set current date to timer firing date(for calculate background elapsed time). When set the time is not fired.
             self.backgroundCalculator.setTimeFiredDate(Date())
@@ -176,7 +175,7 @@ public class MagicTimer {
         lastState = .stopped
         lastStateDidChangeHandler?(.stopped)
     }
-    /// Reset timer to zero
+    /// Reset timer to zero.
     public func reset() {
         executive.suspand()
         counter.resetTotalCounted()
@@ -184,7 +183,7 @@ public class MagicTimer {
         lastStateDidChangeHandler?(.restarted)
         
     }
-    /// Reset timer to default value
+    /// Reset timer to default value.
     public func resetToDefault() {
         executive.suspand()
         counter.resetToDefaultValue()
