@@ -253,6 +253,12 @@ Background image of the timer. Default is nil.
 public var backgroundImage: UIImage? { get set }
 
 ```
+## Suport
+Hey there! I'm fueled by coffee and code ☕️ If you're enjoying my work, consider buying me a coffee to keep me motivated and productive. Your caffeine-powered contribution will keep me going and help me to develop even better projects. Thanks for keeping me caffeinated and inspired!
+
+TRC20 USDT address
+TFZ4XoNo6F2kz6PUgk5SBmWoGULoB67vWV
+
 ## Author
 Sadeq Bitarafan(sadeghgoo), sadeqbitarafan@gmail.com
 ## License
