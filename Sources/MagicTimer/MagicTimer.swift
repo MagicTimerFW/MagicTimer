@@ -1,5 +1,6 @@
 import Foundation
 import MagicTimerCore
+import MathOperators
 
 @available(*, unavailable, renamed: "MGTimerMode")
 /// The timer counting mode.
@@ -8,88 +9,97 @@ public enum MGCountMode {
     case countDown(fromSeconds: TimeInterval)
 }
 
-
 public enum MGTimerMode {
     case stopWatch
     case countDown(fromSeconds: TimeInterval)
 }
 
-
-/**
- A broker between contianer and view.
- 
- Every time calculation or any commands are managing in MagicTimer that contains counter, executive and background time calculator.
- */
-
+/// The MagicTimer implements a timer with different modes (stop watch, and count down) that supports background mode calculations.
 public class MagicTimer {
     
+    // MARK: - Typealias
     public typealias StateHandler = ((MagicTimerState) -> Void)
     public typealias ElapsedTimeHandler = ((TimeInterval) -> Void)
     
-    private var counter: MGCounterBehavior
-    private var executive: MGExecutiveBehavior
-    private var backgroundCalculator: MGBackgroundCalculableBehavior
-
-    public private(set) var lastState: MagicTimerState = .none
+    // MARK: - Public properties
     
-    @available(*, unavailable, renamed: "lastStateDidChangeHandler")
-    /// Timer state callback
-    public var didStateChange: ((MagicTimerState) -> Void)?
+    // MARK: - Handlers
     
-    /// Timer state callback
+    /// Last state of the timer handler. It calls when state of timer changes.
     public var lastStateDidChangeHandler: StateHandler?
     
-    @available(*, unavailable, renamed: "elapsedTimeDidChangeHandler")
-    /// A elpsed time that can observe
-    public var observeElapsedTime: ((TimeInterval) -> Void)?
-    
-    /// A elpsed time that can observe
+    /// Elapsed time handler. It calls on each timeInterval.
     public var elapsedTimeDidChangeHandler: ElapsedTimeHandler?
     
-    private(set) var elapsedTime: TimeInterval = 0
+    // MARK: - Get only
+        
+    public private(set) var lastState: MagicTimerState = .none
+        
+    public private(set) var elapsedTime: TimeInterval = 0
+    
+    /// Timer count mode.
+    public var countMode: MGTimerMode = .stopWatch
     
     /// Set value to counter defultValue.
     public var defultValue: TimeInterval = 0 {
         willSet {
-            guard newValue >= 0 else {
+            guard newValue.isBiggerThanOrEqual(.zero) else {
                 fatalError("The defultValue should be greater or equal to zero.")
             }
             counter.setDefaultValue(newValue)
         }
     }
+    
     /// Set value to counter effectiveValue.
     public var effectiveValue: TimeInterval = 1 {
         willSet {
-            guard newValue >= 0 else {
+            guard newValue.isBiggerThanOrEqual(.zero) else {
                 fatalError("The effectiveValue should be greater or equal to zero.")
             }
             counter.setEffectiveValue(newValue)
         }
     }
+    
     /// Set time interval to executive timeInerval.
     public var timeInterval: TimeInterval = 1  {
         willSet {
-            // TODO: make extension for math operators.
-            guard newValue >= 0 else {
+            guard newValue.isBiggerThanOrEqual(.zero) else {
                 fatalError("The timeInterval should be greater or equal to zero.")
             }
             executive.timeInerval = newValue
         }
     }
+    
     /// Set value to  backgroundCalculator isActiveBackgroundMode property.
     public var isActiveInBackground: Bool = false {
         willSet {
             backgroundCalculator.isActiveBackgroundMode = newValue
         }
     }
-    /// Timer count mode.
-    public var countMode: MGTimerMode = .stopWatch
+    
+    // MARK: - Private
+        
+    private var counter: MGCounterBehavior
+    private var executive: MGExecutiveBehavior
+    private var backgroundCalculator: MGBackgroundCalculableBehavior
+
+    // MARK: - Unavailable
+    
+    @available(*, unavailable, renamed: "elapsedTimeDidChangeHandler")
+    /// A elpsed time that can observe
+    public var observeElapsedTime: ((TimeInterval) -> Void)?
     
     @available(*, unavailable, renamed: "lastState")
     /// The current state of the timer.
     public var currentState: MagicTimerState {
         return lastState
     }
+    
+    @available(*, unavailable, renamed: "lastStateDidChangeHandler")
+    /// Timer state callback
+    public var didStateChange: ((MagicTimerState) -> Void)?
+    
+    // MARK: - Constructor
     
     public init(counter: MGCounterBehavior = MGCounter(),
                 executive: MGExecutiveBehavior = MGTimerExecutive(),
@@ -101,6 +111,52 @@ public class MagicTimer {
             self.calclulateBackgroundTime(elapsedTime: elapsedTime)
         }
     }
+    
+    // MARK: - Public methods
+    
+    /// Observe counting mode and start counting.
+    public func start() {
+        executive.start {
+            // Set current date to timer firing date(for calculate background elapsed time). When set the time is not fired.
+            self.backgroundCalculator.setTimeFiredDate(Date())
+        }
+        
+        switch countMode {
+        case let .countDown(fromSeconds: seconds):
+            countDown(fromSeconds: seconds)
+        case .stopWatch:
+            countUp()
+        }
+        lastState = .fired
+        lastStateDidChangeHandler?(.fired)
+
+    }
+    
+    /// Stop timer counting.
+    public func stop() {
+        executive.suspand()
+        lastState = .stopped
+        lastStateDidChangeHandler?(.stopped)
+    }
+    
+    /// Reset timer to zero.
+    public func reset() {
+        executive.suspand()
+        counter.resetTotalCounted()
+        lastState = .restarted
+        lastStateDidChangeHandler?(.restarted)
+        
+    }
+    
+    /// Reset timer to default value.
+    public func resetToDefault() {
+        executive.suspand()
+        counter.resetToDefaultValue()
+        lastState = .restarted
+        lastStateDidChangeHandler?(.restarted)
+    }
+    
+    // MARK: - Private methods
     
     // Calculate time in background.
     private func calclulateBackgroundTime(elapsedTime: TimeInterval) {
@@ -130,7 +186,7 @@ public class MagicTimer {
   
     private func countDown(fromSeconds: TimeInterval) {
         // Checking if defaultValue plus fromSeconds not going to invalid format(negative seconds).
-        guard (defultValue + fromSeconds).truncatingRemainder(dividingBy: effectiveValue ) == 0 else {
+        guard (defultValue + fromSeconds).truncatingRemainder(dividingBy: effectiveValue ).isEqual(to: .zero) else {
             fatalError("The time does not leading to valid format. Use valid effetiveValue")
         }
         
@@ -150,45 +206,6 @@ public class MagicTimer {
             // Tell the delegate totalCountedValue(elapsed time).
             self.elapsedTimeDidChangeHandler?(self.counter.totalCountedValue)
         }
-    }
-    
-    /// Observe counting mode and start counting.
-    public func start() {
-        executive.start {
-            // Set current date to timer firing date(for calculate background elapsed time). When set the time is not fired.
-            self.backgroundCalculator.setTimeFiredDate(Date())
-        }
-        
-        switch countMode {
-        case let .countDown(fromSeconds: seconds):
-            countDown(fromSeconds: seconds)
-        case .stopWatch:
-            countUp()
-        }
-        lastState = .fired
-        lastStateDidChangeHandler?(.fired)
-
-    }
-    /// Stop timer counting.
-    public func stop() {
-        executive.suspand()
-        lastState = .stopped
-        lastStateDidChangeHandler?(.stopped)
-    }
-    /// Reset timer to zero.
-    public func reset() {
-        executive.suspand()
-        counter.resetTotalCounted()
-        lastState = .restarted
-        lastStateDidChangeHandler?(.restarted)
-        
-    }
-    /// Reset timer to default value.
-    public func resetToDefault() {
-        executive.suspand()
-        counter.resetToDefaultValue()
-        lastState = .restarted
-        lastStateDidChangeHandler?(.restarted)
     }
 }
 

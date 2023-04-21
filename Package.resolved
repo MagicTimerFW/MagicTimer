@@ -15,7 +15,16 @@
         "repositoryURL": "https://github.com/MagicTimerFW/MagicTimerCore",
         "state": {
           "branch": "main",
-          "revision": "a65c5ef7fcc56c75044e84d3b7bbfc6b1f7d9f30",
+          "revision": "7f7e6fb987a2ced2dec1240c42987663ed8c1587",
+          "version": null
+        }
+      },
+      {
+        "package": "MathOperators",
+        "repositoryURL": "https://github.com/sadeghgoo/MathOperators.git",
+        "state": {
+          "branch": "main",
+          "revision": "1bedb10d9a5914040606ca1b26d9c44a21fb19a6",
           "version": null
         }
       }
