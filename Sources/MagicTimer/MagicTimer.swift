@@ -31,11 +31,19 @@ public class MagicTimer {
     /// Elapsed time handler. It calls on each timeInterval.
     public var elapsedTimeDidChangeHandler: ElapsedTimeHandler?
     
-    // MARK: - Get only
+    // MARK: - Get only properties
         
-    public private(set) var lastState: MagicTimerState = .none
+    public private(set) var lastState: MagicTimerState = .none {
+        didSet {
+            lastStateDidChangeHandler?(lastState)
+        }
+    }
         
-    public private(set) var elapsedTime: TimeInterval = 0
+    public private(set) var elapsedTime: TimeInterval = 0 {
+        didSet {
+            elapsedTimeDidChangeHandler?(elapsedTime)
+        }
+    }
     
     /// Timer count mode.
     public var countMode: MGTimerMode = .stopWatch
@@ -119,41 +127,29 @@ public class MagicTimer {
         executive.start {
             // Set current date to timer firing date(for calculate background elapsed time). When set the time is not fired.
             self.backgroundCalculator.setTimeFiredDate(Date())
-        }
-        
-        switch countMode {
-        case let .countDown(fromSeconds: seconds):
-            countDown(fromSeconds: seconds)
-        case .stopWatch:
-            countUp()
-        }
-        lastState = .fired
-        lastStateDidChangeHandler?(.fired)
-
+            self.lastState = .fired
+            self.observeScheduleTimer()
+        }    
     }
     
-    /// Stop timer counting.
+    /// Stop the timer.
     public func stop() {
         executive.suspand()
         lastState = .stopped
-        lastStateDidChangeHandler?(.stopped)
     }
     
-    /// Reset timer to zero.
+    /// Reset the timer. It will set the elapsed time to zero.
     public func reset() {
         executive.suspand()
         counter.resetTotalCounted()
         lastState = .restarted
-        lastStateDidChangeHandler?(.restarted)
-        
     }
     
-    /// Reset timer to default value.
+    /// Reset the timer to the default value.
     public func resetToDefault() {
         executive.suspand()
         counter.resetToDefaultValue()
         lastState = .restarted
-        lastStateDidChangeHandler?(.restarted)
     }
     
     // MARK: - Private methods
@@ -176,35 +172,38 @@ public class MagicTimer {
             }
         }
     }
-    
-    private func countUp() {
-        executive.scheduleTimerHandler = {
-            self.counter.add()
-            self.elapsedTimeDidChangeHandler?(self.counter.totalCountedValue)
-        }
-    }
-  
-    private func countDown(fromSeconds: TimeInterval) {
-        // Checking if defaultValue plus fromSeconds not going to invalid format(negative seconds).
-        guard (defultValue + fromSeconds).truncatingRemainder(dividingBy: effectiveValue ).isEqual(to: .zero) else {
-            fatalError("The time does not leading to valid format. Use valid effetiveValue")
-        }
         
-        counter.setTotalCountedValue(fromSeconds)
-        
-        // Every timeInterval observe value is called.
-        executive.scheduleTimerHandler = {
-            // Check if totalCountedValue is valid or not.
-            guard self.counter.totalCountedValue > 0 else {
-                self.executive.suspand()
-                self.lastStateDidChangeHandler?(.stopped)
-
-                return
+    private func observeScheduleTimer() {
+        executive.scheduleTimerHandler = { [weak self] in
+            guard let self else { return }
+            
+            switch self.countMode {
+            case .stopWatch:
+                self.counter.add()
+                self.elapsedTime = self.counter.totalCountedValue
+            case .countDown(let fromSeconds):
+                // Checking if defaultValue plus fromSeconds not going to invalid format(negative seconds).
+                guard (self.defultValue + fromSeconds).truncatingRemainder(dividingBy: self.effectiveValue).isEqual(to: .zero) else {
+                    fatalError("The time does not leading to valid format. Use valid effetiveValue")
+                }
+                
+                self.counter.setTotalCountedValue(fromSeconds)
+                
+                // Every timeInterval observe value is called.
+                self.executive.scheduleTimerHandler = { [weak self] in
+                    // Check if totalCountedValue is valid or not.
+                    guard let self else { return }
+                    guard self.counter.totalCountedValue.isBiggerThan(.zero) else {
+                        self.executive.suspand()
+                        self.lastState = .stopped
+                        return
+                    }
+                    // Subtract effectiveValue from totalCountedValue.
+                    self.counter.subtract()
+                    // Tell the delegate totalCountedValue(elapsed time).
+                    self.elapsedTime = self.counter.totalCountedValue
+                }
             }
-            // Subtract effectiveValue from totalCountedValue.
-            self.counter.subtract()
-            // Tell the delegate totalCountedValue(elapsed time).
-            self.elapsedTimeDidChangeHandler?(self.counter.totalCountedValue)
         }
     }
 }
