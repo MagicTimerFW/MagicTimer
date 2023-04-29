@@ -184,7 +184,7 @@ public class MagicTimer {
             case .countDown(let fromSeconds):
                 // Checking if defaultValue plus fromSeconds not going to invalid format(negative seconds).
                 guard (self.defultValue + fromSeconds).truncatingRemainder(dividingBy: self.effectiveValue).isEqual(to: .zero) else {
-                    fatalError("The time does not leading to valid format. Use valid effetiveValue")
+                    fatalError("The time does not lead to a valid format. Use valid effetiveValue")
                 }
                 
                 self.counter.setTotalCountedValue(fromSeconds)
