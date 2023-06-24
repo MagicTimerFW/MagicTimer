@@ -6,7 +6,7 @@
         "repositoryURL": "https://github.com/MagicTimerFW/MagicTimerCommon.git",
         "state": {
           "branch": "main",
-          "revision": "8e362710b2cca6ea283bce2721b93500ec780171",
+          "revision": "fb03ac56dba62017a5fefea3552b0e8c045b1f37",
           "version": null
         }
       },
@@ -15,7 +15,7 @@
         "repositoryURL": "https://github.com/MagicTimerFW/MagicTimerCore",
         "state": {
           "branch": "main",
-          "revision": "7f7e6fb987a2ced2dec1240c42987663ed8c1587",
+          "revision": "781975cb4332a13caa2bf28942595c303e1acfd7",
           "version": null
         }
       },

@@ -22,9 +22,7 @@ public class MagicTimer {
     public typealias ElapsedTimeHandler = ((TimeInterval) -> Void)
     
     // MARK: - Public properties
-    
     // MARK: - Handlers
-    
     /// Last state of the timer handler. It calls when state of timer changes.
     public var lastStateDidChangeHandler: StateHandler?
     
@@ -32,53 +30,55 @@ public class MagicTimer {
     public var elapsedTimeDidChangeHandler: ElapsedTimeHandler?
     
     // MARK: - Get only properties
-        
+    
+    /// Last state of the timer. Checkout ```MagicTimerState```.
     public private(set) var lastState: MagicTimerState = .none {
         didSet {
             lastStateDidChangeHandler?(lastState)
         }
     }
-        
+    
+    /// Elapsed time from where the timer started. Default is 0.
     public private(set) var elapsedTime: TimeInterval = 0 {
         didSet {
             elapsedTimeDidChangeHandler?(elapsedTime)
         }
     }
     
-    /// Timer count mode.
+    /// Timer count mode. Default is `.stopWatch`. Checkout ```MGTimerMode```
     public var countMode: MGTimerMode = .stopWatch
     
-    /// Set value to counter defultValue.
+    /// Timer default value. Default is 0.
     public var defultValue: TimeInterval = 0 {
         willSet {
             guard newValue.isBiggerThanOrEqual(.zero) else {
                 fatalError("The defultValue should be greater or equal to zero.")
             }
-            counter.setDefaultValue(newValue)
+            counter.defultValue = newValue
         }
     }
     
-    /// Set value to counter effectiveValue.
+    /// Timer effective value. Default is 1.
     public var effectiveValue: TimeInterval = 1 {
         willSet {
             guard newValue.isBiggerThanOrEqual(.zero) else {
                 fatalError("The effectiveValue should be greater or equal to zero.")
             }
-            counter.setEffectiveValue(newValue)
+            counter.effectiveValue = newValue
         }
     }
     
-    /// Set time interval to executive timeInerval.
+    /// Timer time interval, Default is 1.
     public var timeInterval: TimeInterval = 1  {
         willSet {
             guard newValue.isBiggerThanOrEqual(.zero) else {
                 fatalError("The timeInterval should be greater or equal to zero.")
             }
-            executive.timeInerval = newValue
+            executive.timeInterval = newValue
         }
     }
     
-    /// Set value to  backgroundCalculator isActiveBackgroundMode property.
+    /// Set value to backgroundCalculator isActiveBackgroundMode property.
     public var isActiveInBackground: Bool = false {
         willSet {
             backgroundCalculator.isActiveBackgroundMode = newValue
@@ -86,13 +86,11 @@ public class MagicTimer {
     }
     
     // MARK: - Private
-        
     private var counter: MGCounterBehavior
     private var executive: MGExecutiveBehavior
     private var backgroundCalculator: MGBackgroundCalculableBehavior
 
     // MARK: - Unavailable
-    
     @available(*, unavailable, renamed: "elapsedTimeDidChangeHandler")
     /// A elpsed time that can observe
     public var observeElapsedTime: ((TimeInterval) -> Void)?
@@ -107,8 +105,7 @@ public class MagicTimer {
     /// Timer state callback
     public var didStateChange: ((MagicTimerState) -> Void)?
     
-    // MARK: - Constructor
-    
+    // MARK: - Constructors
     public init(counter: MGCounterBehavior = MGCounter(),
                 executive: MGExecutiveBehavior = MGTimerExecutive(),
                 backgroundCalculator: MGBackgroundCalculableBehavior = MGBackgroundCalculator()) {
@@ -121,18 +118,16 @@ public class MagicTimer {
     }
     
     // MARK: - Public methods
-    
-    /// Observe counting mode and start counting.
+    /// Start counting the timer.
     public func start() {
         executive.start {
-            // Set current date to timer firing date(for calculate background elapsed time). When set the time is not fired.
-            self.backgroundCalculator.setTimeFiredDate(Date())
+            self.backgroundCalculator.timerFiredDate = Date()
             self.lastState = .fired
             self.observeScheduleTimer()
         }    
     }
     
-    /// Stop the timer.
+    /// Stop counting the timer.
     public func stop() {
         executive.suspand()
         lastState = .stopped
@@ -153,22 +148,18 @@ public class MagicTimer {
     }
     
     // MARK: - Private methods
-    
-    // Calculate time in background.
+    // It calculates the elapsed time user was in background.
     private func calclulateBackgroundTime(elapsedTime: TimeInterval) {
         switch countMode {
         case .stopWatch:
-            // Set totalCountedValue to all elpased time plus time in background.
-             counter.setTotalCountedValue(elapsedTime)
+             counter.totalCountedValue = elapsedTime
         case let .countDown(fromSeconds: countDownSeconds):
             
             let subtraction = countDownSeconds - elapsedTime
-            // Checking elapsed time in background wasn't negeative.
             if subtraction.isPositive {
-                // Set totalCountedValue to total time minus elapsed time in background.
-                counter.setTotalCountedValue(subtraction)
+                counter.totalCountedValue = subtraction
             } else {
-                counter.setTotalCountedValue(1)
+                counter.totalCountedValue = 1
             }
         }
     }
@@ -187,20 +178,16 @@ public class MagicTimer {
                     fatalError("The time does not lead to a valid format. Use valid effetiveValue")
                 }
                 
-                self.counter.setTotalCountedValue(fromSeconds)
+                self.counter.totalCountedValue = fromSeconds
                 
-                // Every timeInterval observe value is called.
                 self.executive.scheduleTimerHandler = { [weak self] in
-                    // Check if totalCountedValue is valid or not.
                     guard let self else { return }
                     guard self.counter.totalCountedValue.isBiggerThan(.zero) else {
                         self.executive.suspand()
                         self.lastState = .stopped
                         return
                     }
-                    // Subtract effectiveValue from totalCountedValue.
                     self.counter.subtract()
-                    // Tell the delegate totalCountedValue(elapsed time).
                     self.elapsedTime = self.counter.totalCountedValue
                 }
             }
