@@ -120,7 +120,7 @@ public class MagicTimer {
     // MARK: - Public methods
     /// Start counting the timer.
     public func start() {
-        executive.start {
+        executive.fire {
             self.backgroundCalculator.timerFiredDate = Date()
             self.lastState = .fired
             self.observeScheduleTimer()
