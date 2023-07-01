@@ -85,7 +85,7 @@ public class MagicTimer {
         }
     }
     
-    // MARK: - Private
+    // MARK: - Private properties
     private var counter: MagicTimerCounterInterface
     private var executive: MagicTimerExecutiveInterface
     private var backgroundCalculator: MagicTimerBackgroundCalculatorInterface
