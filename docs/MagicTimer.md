@@ -1,98 +1,75 @@
-# MagicTimer 
+# MagicTimer Class
 
-The `MagicTimer` class is a timer implementation written in Swift. It provides various functionalities to start, stop, reset, background time calculation and observe the elapsed time. The class uses a set of handler closures to notify the changes in the timer's state and elapsed time.
+The `MagicTimer` class is a timer implementation that provides various functionalities to start, stop, reset, and calculate elapsed time. It supports different timer modes, background time calculation, and event handlers.
 
-## Typealiases
+## Properties
+
+### Handlers
+
+- `lastStateDidChangeHandler`: A handler called when the timer state changes. It provides the last state of the timer.
+- `elapsedTimeDidChangeHandler`: A handler called on each time interval. It provides the elapsed time.
+
+### Get-only Properties
+
+- `lastState`: The last state of the timer. It can be one of the following states: `.none`, `.fired`, `.stopped`, or `.restarted`.
+- `elapsedTime`: The elapsed time from when the timer started.
+
+### Timer Configuration Properties
+
+- `countMode`: The timer count mode. It can be either `.stopWatch` or `.countDown(fromSeconds: TimeInterval)`.
+- `defultValue`: The timer default value. This value is used when resetting the timer.
+- `effectiveValue`: The value added or subtracted on each time interval.
+- `timeInterval`: The time interval between each timer tick.
+- `isActiveInBackground`: Determines whether the timer calculates time in the background.
+
+## Constructors
+
+- `init(counter: MagicTimerCounterInterface = MagicTimerCounter(), executive: MagicTimerExecutiveInterface = MagicTimerExecutive(), backgroundCalculator: MagicTimerBackgroundCalculatorInterface = MagicTimerBackgroundCalculator())`: Initializes a new instance of the `MagicTimer` class with the specified counter, executive, and background calculator.
+
+## Methods
+
+- `start()`: Starts the timer.
+- `stop()`: Stops the timer.
+- `reset()`: Resets the timer, setting the elapsed time to zero.
+- `resetToDefault()`: Resets the timer to the default value.
+
+
+
+> Note: The `MagicTimer` class uses the `MagicTimerCounterInterface`, `MagicTimerExecutiveInterface`, and `MagicTimerBackgroundCalculatorInterface` protocols for counter, executive, and background calculator implementations, respectively.
+
+Checkout the documentations:
+[MagicTimerCounterInterface](https://github.com/MagicTimerFW/MagicTimerCore/blob/main/docs/MagicTimerCounter.md]MagicTimerCounterInterface), [MagicTimerExecutiveInterface](https://github.com/MagicTimerFW/MagicTimerCore/blob/main/docs/MagicTimerExecutive.md), [MagicTimerBackgroundCalculatorInterface](https://github.com/MagicTimerFW/MagicTimerCore/blob/main/docs/MagicTimerBackgroundCalculator.md
+), 
+
+## Usage
 
 ```swift
-public typealias StateHandler = ((MagicTimerState) -> Void)
-public typealias ElapsedTimeHandler = ((TimeInterval) -> Void)
-```
+// Create an instance of MagicTimer
+let timer = MagicTimer()
 
-- `StateHandler`: A closure type that takes a `MagicTimerState` parameter, representing the timer's state, and returns `Void`. This closure is called when the state of the timer changes.
-- `ElapsedTimeHandler`: A closure type that takes a `TimeInterval` parameter, representing the elapsed time, and returns `Void`. This closure is called on each time interval to update the elapsed time.
-
-## Public Properties
-
-- `lastStateDidChangeHandler`: A closure that is called when the state of the timer changes.
-- `elapsedTimeDidChangeHandler`: A closure that is called on each time interval to update the elapsed time.
-
-```swift
-public var lastStateDidChangeHandler: StateHandler?
-public var elapsedTimeDidChangeHandler: ElapsedTimeHandler?
-```
-
-- `lastState`: A read-only property representing the last state of the timer. Checkout `MagicTimerState`.
-
-```swift
-public private(set) var lastState: MagicTimerState = .none {
-    didSet {
-        lastStateDidChangeHandler?(lastState)
-    }
+// Configure event handlers
+timer.lastStateDidChangeHandler = { state in
+    // Handle timer state changes
 }
-```
 
-- `elapsedTime`: A read-only property representing the elapsed time from when the timer started. Default is 0.
-
-```swift
-public private(set) var elapsedTime: TimeInterval = 0 {
-    didSet {
-        elapsedTimeDidChangeHandler?(elapsedTime)
-    }
+timer.elapsedTimeDidChangeHandler = { elapsedTime in
+    // Handle elapsed time changes
 }
-```
 
-- `countMode`: Timer count mode. Default is `.stopWatch`. Checkout `MGTimerMode`.
+// Start the timer
+timer.start()
 
-```swift
-public var countMode: MGTimerMode = .stopWatch
-```
+// ...
 
-- `defultValue`: Timer default value. Default is 0.
+// Stop the timer
+timer.stop()
 
-```swift
-public var defultValue: TimeInterval = 0 {
-    willSet {
-        guard newValue.isBiggerThanOrEqual(.zero) else {
-            fatalError("The defultValue should be greater or equal to zero.")
-        }
-        counter.defultValue = newValue
-    }
-}
-```
+// ...
 
-- `effectiveValue`: A number which is added or minused on each `timeInterval`. Default is 1.
+// Reset the timer
+timer.reset()
 
-```swift
-public var effectiveValue: TimeInterval = 1 {
-    willSet {
-        guard newValue.isBiggerThanOrEqual(.zero) else {
-            fatalError("The effectiveValue should be greater or equal to zero.")
-        }
-        counter.effectiveValue = newValue
-    }
-}
-```
+// ...
 
-- `timeInterval`: Timer time interval, Default is 1.
-
-```swift
-public var timeInterval: TimeInterval = 1  {
-    willSet {
-        guard newValue.isBiggerThanOrEqual(.zero) else {
-            fatalError("The timeInterval should be greater or equal to zero.")
-        }
-        executive.timeInterval = newValue
-    }
-}
-```
-
-- `isActiveInBackground`: By changing this type, the timer decides whether to calculate the time in the background. Default is true.
-
-```swift
-public var isActiveInBackground: Bool = true {
-    willSet {
-        backgroundCalculator.isActiveBackgroundMode = newValue
-    }
-}
-```
+// Reset the timer to the default value
+timer.resetToDefault()
