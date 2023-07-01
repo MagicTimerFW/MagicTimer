@@ -2,19 +2,19 @@ import Foundation
 import MagicTimerCore
 import MathOperators
 
-@available(*, unavailable, renamed: "MGTimerMode")
+@available(*, unavailable, renamed: "MagicTimerMode")
 /// The timer counting mode.
 public enum MGCountMode {
     case stopWatch
     case countDown(fromSeconds: TimeInterval)
 }
 
-public enum MGTimerMode {
+public enum MagicTimerMode {
     case stopWatch
     case countDown(fromSeconds: TimeInterval)
 }
 
-/// The MagicTimer implements a timer with different modes (stop watch, and count down) that supports background mode calculations.
+/// The MagicTimer class is a timer implementation. It provides various functionalities to start, stop, reset, background time calculation and more.
 public class MagicTimer {
     
     // MARK: - Typealias
@@ -45,50 +45,50 @@ public class MagicTimer {
         }
     }
     
-    /// Timer count mode. Default is `.stopWatch`. Checkout ```MGTimerMode```
-    public var countMode: MGTimerMode = .stopWatch
+    /// Timer count mode. Default is `.stopWatch`. Checkout ```MagicTimerMode```.
+    public var countMode: MagicTimerMode = .stopWatch
     
     /// Timer default value. Default is 0.
     public var defultValue: TimeInterval = 0 {
-        willSet {
-            guard newValue.isBiggerThanOrEqual(.zero) else {
+        didSet {
+            guard defultValue.isBiggerThanOrEqual(.zero) else {
                 fatalError("The defultValue should be greater or equal to zero.")
             }
-            counter.defultValue = newValue
+            counter.defultValue = defultValue
         }
     }
     
-    /// Timer effective value. Default is 1.
+    /// A number which is added or minused on each ``timeInterval``. Default is 1.
     public var effectiveValue: TimeInterval = 1 {
-        willSet {
-            guard newValue.isBiggerThanOrEqual(.zero) else {
+        didSet {
+            guard effectiveValue.isBiggerThanOrEqual(.zero) else {
                 fatalError("The effectiveValue should be greater or equal to zero.")
             }
-            counter.effectiveValue = newValue
+            counter.effectiveValue = effectiveValue
         }
     }
     
-    /// Timer time interval, Default is 1.
+    /// Timer time interval. Default is 1.
     public var timeInterval: TimeInterval = 1  {
-        willSet {
-            guard newValue.isBiggerThanOrEqual(.zero) else {
+        didSet {
+            guard timeInterval.isBiggerThanOrEqual(.zero) else {
                 fatalError("The timeInterval should be greater or equal to zero.")
             }
-            executive.timeInterval = newValue
+            executive.timeInterval = timeInterval
         }
     }
     
-    /// Set value to backgroundCalculator isActiveBackgroundMode property.
-    public var isActiveInBackground: Bool = false {
-        willSet {
-            backgroundCalculator.isActiveBackgroundMode = newValue
+    /// By changing this type timer decides to whether calcualte the time in background. Default is true.
+    public var isActiveInBackground: Bool = true {
+        didSet {
+            backgroundCalculator.isActiveBackgroundMode = isActiveInBackground
         }
     }
     
     // MARK: - Private
-    private var counter: MGCounterBehavior
-    private var executive: MGExecutiveBehavior
-    private var backgroundCalculator: MGBackgroundCalculableBehavior
+    private var counter: MagicTimerCounterInterface
+    private var executive: MagicTimerExecutiveInterface
+    private var backgroundCalculator: MagicTimerBackgroundCalculatorInterface
 
     // MARK: - Unavailable
     @available(*, unavailable, renamed: "elapsedTimeDidChangeHandler")
@@ -106,9 +106,9 @@ public class MagicTimer {
     public var didStateChange: ((MagicTimerState) -> Void)?
     
     // MARK: - Constructors
-    public init(counter: MGCounterBehavior = MGCounter(),
-                executive: MGExecutiveBehavior = MGTimerExecutive(),
-                backgroundCalculator: MGBackgroundCalculableBehavior = MGBackgroundCalculator()) {
+    public init(counter: MagicTimerCounterInterface = MagicTimerCounter(),
+                executive: MagicTimerExecutiveInterface = MagicTimerExecutive(),
+                backgroundCalculator: MagicTimerBackgroundCalculatorInterface = MagicTimerBackgroundCalculator()) {
         self.counter = counter
         self.executive = executive
         self.backgroundCalculator = backgroundCalculator
@@ -129,22 +129,25 @@ public class MagicTimer {
     
     /// Stop counting the timer.
     public func stop() {
-        executive.suspand()
-        lastState = .stopped
+        executive.suspand {
+            self.lastState = .stopped
+        }
     }
     
     /// Reset the timer. It will set the elapsed time to zero.
     public func reset() {
-        executive.suspand()
-        counter.resetTotalCounted()
-        lastState = .restarted
+        executive.suspand {
+            self.counter.resetTotalCounted()
+            self.lastState = .restarted
+        }
     }
     
-    /// Reset the timer to the default value.
+    /// Reset the timer to the ``defaultvalue``.
     public func resetToDefault() {
-        executive.suspand()
-        counter.resetToDefaultValue()
-        lastState = .restarted
+        executive.suspand {
+            self.counter.resetToDefaultValue()
+            self.lastState = .restarted
+        }
     }
     
     // MARK: - Private methods
@@ -179,17 +182,14 @@ public class MagicTimer {
                 }
                 
                 self.counter.totalCountedValue = fromSeconds
-                
-                self.executive.scheduleTimerHandler = { [weak self] in
-                    guard let self else { return }
-                    guard self.counter.totalCountedValue.isBiggerThan(.zero) else {
-                        self.executive.suspand()
+                guard counter.totalCountedValue.isBiggerThan(.zero) else {
+                    executive.suspand {
                         self.lastState = .stopped
-                        return
                     }
-                    self.counter.subtract()
-                    self.elapsedTime = self.counter.totalCountedValue
+                    return
                 }
+                counter.subtract()
+                elapsedTime = self.counter.totalCountedValue
             }
         }
     }
