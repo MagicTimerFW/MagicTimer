@@ -1,189 +1,197 @@
-
-
 import Foundation
-import UIKit
+import MagicTimerCore
+import MathOperators
 
-/// A type that make standard behavior to constraintable view.
-protocol StandardConstraintableView {
-    /// Set constraint of the elements
-    func setConstraint()
-    /// Add subview or any installation
-    func initialSubView()
-}
-
+@available(*, unavailable, renamed: "MagicTimerMode")
 /// The timer counting mode.
 public enum MGCountMode {
     case stopWatch
     case countDown(fromSeconds: TimeInterval)
 }
-/**
- A broker between contianer and view.
- 
- Every time calculation or any commands are managing in MagicTimer that contains counter, executive and background time calculator.
- */
 
-public class MagicTimer: MGLogable {
-        
-    private var counter: MGCounterBehavior
-    private var executive: MGObservableTimerBehavior
-    private var backgroundCalculator: MGBackgroundCalculableBehavior
+public enum MagicTimerMode {
+    case stopWatch
+    case countDown(fromSeconds: TimeInterval)
+}
+
+/// The MagicTimer class is a timer implementation. It provides various functionalities to start, stop, reset, background time calculation and more.
+public class MagicTimer {
     
-    private var state: MagicTimerState = .none {
-        willSet {
-            executive.state = newValue
-            backgroundCalculator.state = newValue
-            
+    // MARK: - Typealias
+    public typealias StateHandler = ((MagicTimerState) -> Void)
+    public typealias ElapsedTimeHandler = ((TimeInterval) -> Void)
+    
+    // MARK: - Public properties
+    // MARK: - Handlers
+    /// Last state of the timer handler. It calls when state of timer changes.
+    public var lastStateDidChangeHandler: StateHandler?
+    
+    /// Elapsed time handler. It calls on each timeInterval.
+    public var elapsedTimeDidChangeHandler: ElapsedTimeHandler?
+    
+    // MARK: - Get only properties
+    
+    /// Last state of the timer. Checkout ```MagicTimerState```.
+    public private(set) var lastState: MagicTimerState = .none {
+        didSet {
+            lastStateDidChangeHandler?(lastState)
         }
     }
     
-    /// Timer state callback
-    public var didStateChange: ((MagicTimerState) -> Void)?
+    /// Elapsed time from where the timer started. Default is 0.
+    public private(set) var elapsedTime: TimeInterval = 0 {
+        didSet {
+            elapsedTimeDidChangeHandler?(elapsedTime)
+        }
+    }
     
+    /// Timer count mode. Default is `.stopWatch`. Checkout ```MagicTimerMode```.
+    public var countMode: MagicTimerMode = .stopWatch
+    
+    /// Timer default value. Default is 0.
+    public var defultValue: TimeInterval = 0 {
+        didSet {
+            guard defultValue.isBiggerThanOrEqual(.zero) else {
+                fatalError("The defultValue should be greater or equal to zero.")
+            }
+            counter.defultValue = defultValue
+        }
+    }
+    
+    /// A number which is added or minused on each ``timeInterval``. Default is 1.
+    public var effectiveValue: TimeInterval = 1 {
+        didSet {
+            guard effectiveValue.isBiggerThanOrEqual(.zero) else {
+                fatalError("The effectiveValue should be greater or equal to zero.")
+            }
+            counter.effectiveValue = effectiveValue
+        }
+    }
+    
+    /// Timer time interval. Default is 1.
+    public var timeInterval: TimeInterval = 1  {
+        didSet {
+            guard timeInterval.isBiggerThanOrEqual(.zero) else {
+                fatalError("The timeInterval should be greater or equal to zero.")
+            }
+            executive.timeInterval = timeInterval
+        }
+    }
+    
+    /// By changing this type timer decides to whether calcualte the time in background. Default is true.
+    public var isActiveInBackground: Bool = true {
+        didSet {
+            backgroundCalculator.isActiveBackgroundMode = isActiveInBackground
+        }
+    }
+    
+    // MARK: - Private properties
+    private var counter: MagicTimerCounterInterface
+    private var executive: MagicTimerExecutiveInterface
+    private var backgroundCalculator: MagicTimerBackgroundCalculatorInterface
+
+    // MARK: - Unavailable
+    @available(*, unavailable, renamed: "elapsedTimeDidChangeHandler")
     /// A elpsed time that can observe
     public var observeElapsedTime: ((TimeInterval) -> Void)?
     
-    /// Set value to counter defultValue.
-    public var defultValue: TimeInterval = 0 {
-        willSet {
-            let positiveValue = max(0, newValue)
-            counter.setDefaultValue(positiveValue)
-        }
-    }
-    /// Set value to counter effectiveValue.
-    public var effectiveValue: TimeInterval = 1 {
-        willSet {
-            let positiveValue = max(0, newValue)
-            counter.setEffectiveValue(positiveValue)
-        }
-    }
-    /// Set time interval to executive timeInerval.
-    public var timeInterval: TimeInterval = 1  {
-        willSet {
-            let positiveValue = max(0, newValue)
-            executive.setTimeInterval(positiveValue)
-        }
-    }
-    /// Set value to  backgroundCalculator isActiveBackgroundMode property.
-    public var isActiveInBackground: Bool = false {
-        willSet {
-            backgroundCalculator.isActiveBackgroundMode = newValue
-        }
-    }
-    /// State of time counting.
-    public var countMode: MGCountMode = .stopWatch
-    
+    @available(*, unavailable, renamed: "lastState")
     /// The current state of the timer.
     public var currentState: MagicTimerState {
-        return state
+        return lastState
     }
     
-    public init() {
-        counter = MGCounter()
-        executive = MGTimerExecutive()
-        backgroundCalculator = MGBackgroundCalculator()
-        
-        backgroundCalculator.observe = { elapsedTime in
-            
+    @available(*, unavailable, renamed: "lastStateDidChangeHandler")
+    /// Timer state callback
+    public var didStateChange: ((MagicTimerState) -> Void)?
+    
+    // MARK: - Constructors
+    public init(counter: MagicTimerCounterInterface = MagicTimerCounter(),
+                executive: MagicTimerExecutiveInterface = MagicTimerExecutive(),
+                backgroundCalculator: MagicTimerBackgroundCalculatorInterface = MagicTimerBackgroundCalculator()) {
+        self.counter = counter
+        self.executive = executive
+        self.backgroundCalculator = backgroundCalculator
+        self.backgroundCalculator.backgroundTimeCalculateHandler = { elapsedTime in
             self.calclulateBackgroundTime(elapsedTime: elapsedTime)
         }
-        log(message: "initialized")
     }
-    // Calculate time in background
+    
+    // MARK: - Public methods
+    /// Start counting the timer.
+    public func start() {
+        executive.fire {
+            self.backgroundCalculator.timerFiredDate = Date()
+            self.lastState = .fired
+            self.observeScheduleTimer()
+        }    
+    }
+    
+    /// Stop counting the timer.
+    public func stop() {
+        executive.suspand {
+            self.lastState = .stopped
+        }
+    }
+    
+    /// Reset the timer. It will set the elapsed time to zero.
+    public func reset() {
+        executive.suspand {
+            self.counter.resetTotalCounted()
+            self.lastState = .restarted
+        }
+    }
+    
+    /// Reset the timer to the ``defaultvalue``.
+    public func resetToDefault() {
+        executive.suspand {
+            self.counter.resetToDefaultValue()
+            self.lastState = .restarted
+        }
+    }
+    
+    // MARK: - Private methods
+    // It calculates the elapsed time user was in background.
     private func calclulateBackgroundTime(elapsedTime: TimeInterval) {
         switch countMode {
         case .stopWatch:
-            // Set totalCountedValue to all elpased time plus time in background.
-             counter.setTotalCountedValue(elapsedTime)
+             counter.totalCountedValue = elapsedTime
         case let .countDown(fromSeconds: countDownSeconds):
             
             let subtraction = countDownSeconds - elapsedTime
-            // Checking elapsed time in background wasn't negeative.
             if subtraction.isPositive {
-                // Set totalCountedValue to total time minus elapsed time in background.
-                counter.setTotalCountedValue(subtraction)
+                counter.totalCountedValue = subtraction
             } else {
-                counter.setTotalCountedValue(1)
+                counter.totalCountedValue = 1
             }
         }
     }
-    
-    private func countUp() {
-
-        executive.observeValue = {
-            self.counter.add()
-            self.observeElapsedTime?(self.counter.totalCountedValue)
-        }
-    }
-  
-    private func countDown(fromSeconds: TimeInterval) {
-        // Checking if defaultValue plus fromSeconds not going to invalid format(negative seconds).
-        guard (defultValue + fromSeconds).truncatingRemainder(dividingBy: effectiveValue ) == 0 else {
-            fatalError("The time does not leading to valid format. Use valid effetiveValue")
-        }
         
-        counter.setTotalCountedValue(fromSeconds)
-        
-        // Every timeInterval observe value is called.
-        executive.observeValue = {
-            // Check if totalCountedValue is valid or not.
-            guard self.counter.totalCountedValue > 0 else {
-                self.executive.suspand()
-                self.didStateChange?(.stopped)
-
-                return
+    private func observeScheduleTimer() {
+        executive.scheduleTimerHandler = { [weak self] in
+            guard let self else { return }
+            
+            switch self.countMode {
+            case .stopWatch:
+                self.counter.add()
+                self.elapsedTime = self.counter.totalCountedValue
+            case .countDown(let fromSeconds):
+                // Checking if defaultValue plus fromSeconds not going to invalid format(negative seconds).
+                guard (self.defultValue + fromSeconds).truncatingRemainder(dividingBy: self.effectiveValue).isEqual(to: .zero) else {
+                    fatalError("The time does not lead to a valid format. Use valid effetiveValue")
+                }
+                
+                self.counter.totalCountedValue = fromSeconds
+                guard counter.totalCountedValue.isBiggerThan(.zero) else {
+                    executive.suspand {
+                        self.lastState = .stopped
+                    }
+                    return
+                }
+                counter.subtract()
+                elapsedTime = self.counter.totalCountedValue
             }
-            // Subtract effectiveValue from totalCountedValue.
-            self.counter.subtract()
-            // Tell the delegate totalCountedValue(elapsed time).
-            self.observeElapsedTime?(self.counter.totalCountedValue)
         }
-    }
-    
-    /// Observe counting mode and start counting.
-    public func start() {
-        
-        executive.start {
-            // Set current date to timer firing date(for calculate background elapsed time). When set the time is not fired.
-            self.backgroundCalculator.setTimeFiredDate(Date())
-        }
-        
-        switch countMode {
-        case let .countDown(fromSeconds: seconds):
-            countDown(fromSeconds: seconds)
-        case .stopWatch:
-            countUp()
-        }
-        state = .fired
-        didStateChange?(.fired)
-
-        log(message: "timer started")
-    }
-    /// Stop timer counting.
-    public func stop() {
-        executive.suspand()
-        state = .stopped
-        didStateChange?(.stopped)
-
-        log(message: "timer stopped")
-    }
-    /// Reset timer to zero
-    public func reset() {
-        executive.suspand()
-        counter.resetTotalCounted()
-        state = .restarted
-        didStateChange?(.restarted)
-
-        log(message: "timer restarted")
-        
-    }
-    /// Reset timer to default value 
-    public func resetToDefault() {
-        executive.suspand()
-        counter.resetToDefaultValue()
-        state = .restarted
-        didStateChange?(.restarted)
-        log(message: "timer restarted to default")
-
     }
 }
 
