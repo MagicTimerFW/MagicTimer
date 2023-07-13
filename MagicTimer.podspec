@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'MagicTimer'
-  s.version          = '2.0.1'
+  s.version          = '2.0.0'
   s.summary          = 'MagicTimer framework, your ultimate solution for handling timers in your iOS applications. This framework provides a powerful and flexible timer implementation with various features to meet your timer needs.'
 
   s.homepage         = 'https://github.com/MagicTimerFW/MagicTimer'
