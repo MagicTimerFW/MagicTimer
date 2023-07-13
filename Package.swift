@@ -12,9 +12,7 @@ let package = Package(
             targets: ["MagicTimer"]),
     ],
     dependencies: [
-        .package(
-            name: "MagicTimerCore",
-            url: "https://github.com/MagicTimerFW/MagicTimerCore", branch: "main")
+        .package(url: "https://github.com/MagicTimerFW/MagicTimerCore", from: "1.0.0")
     ],
     targets: [
         .target(
@@ -22,7 +20,7 @@ let package = Package(
             dependencies: [
                 .product(
                     name: "MagicTimerCore",
-                    package: "MagicTimerCore")
+                    package: "MagicTimerCore"),
             ]),
         .testTarget(
             name: "MagicTimerTests",
