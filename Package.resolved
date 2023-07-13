@@ -1,0 +1,34 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "MagicTimerCommon",
+        "repositoryURL": "https://github.com/MagicTimerFW/MagicTimerCommon.git",
+        "state": {
+          "branch": "main",
+          "revision": "26d4544ff36655b4666de138041a1187605e8971",
+          "version": null
+        }
+      },
+      {
+        "package": "MagicTimerCore",
+        "repositoryURL": "https://github.com/MagicTimerFW/MagicTimerCore",
+        "state": {
+          "branch": "1.0.0",
+          "revision": "b73e495db4bfb19c49aadf948748f84ce678ad07",
+          "version": null
+        }
+      },
+      {
+        "package": "MathOperators",
+        "repositoryURL": "https://github.com/sadeghgoo/MathOperators.git",
+        "state": {
+          "branch": "main",
+          "revision": "1bedb10d9a5914040606ca1b26d9c44a21fb19a6",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}

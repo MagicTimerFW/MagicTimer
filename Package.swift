@@ -12,7 +12,7 @@ let package = Package(
             targets: ["MagicTimer"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/MagicTimerFW/MagicTimerCore", from: "1.0.0")
+        .package(url: "https://github.com/MagicTimerFW/MagicTimerCore", revision: "1.0.0")
     ],
     targets: [
         .target(
