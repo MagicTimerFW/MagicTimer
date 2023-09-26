@@ -91,18 +91,18 @@ public class MagicTimer {
     private var backgroundCalculator: MagicTimerBackgroundCalculatorInterface
 
     // MARK: - Unavailable
-    @available(*, unavailable, renamed: "elapsedTimeDidChangeHandler")
-    /// A elpsed time that can observe
+    /// A elapsed time that can observe
+    /// - Warning: renamed: "elapsedTimeDidChangeHandler"
     public var observeElapsedTime: ((TimeInterval) -> Void)?
     
-    @available(*, unavailable, renamed: "lastState")
     /// The current state of the timer.
+    /// - Warning: renamed: "lastState"
     public var currentState: MagicTimerState {
         return lastState
     }
     
-    @available(*, unavailable, renamed: "lastStateDidChangeHandler")
     /// Timer state callback
+    /// - Warning: renamed: "lastStateDidChangeHandler"
     public var didStateChange: ((MagicTimerState) -> Void)?
     
     // MARK: - Constructors
