@@ -5,7 +5,7 @@
         "package": "MagicTimerCommon",
         "repositoryURL": "https://github.com/MagicTimerFW/MagicTimerCommon.git",
         "state": {
-          "branch": "1.0.0",
+          "branch": "main",
           "revision": "26d4544ff36655b4666de138041a1187605e8971",
           "version": null
         }
@@ -14,8 +14,8 @@
         "package": "MagicTimerCore",
         "repositoryURL": "https://github.com/MagicTimerFW/MagicTimerCore",
         "state": {
-          "branch": "1.0.0",
-          "revision": "ad356988b5cfd45930586c7d8916f9e579ebd91e",
+          "branch": "main",
+          "revision": "2af8ffaac0bec73a32a984c77f331f961a854753",
           "version": null
         }
       },
