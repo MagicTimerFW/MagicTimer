@@ -1,5 +1,4 @@
 import Foundation
-import MagicTimerCore
 import MathOperators
 
 @available(*, unavailable, renamed: "MagicTimerMode")
