@@ -112,7 +112,7 @@ public class MagicTimer {
         self.executive = executive
         self.backgroundCalculator = backgroundCalculator
         self.backgroundCalculator.backgroundTimeCalculateHandler = { elapsedTime in
-            self.calclulateBackgroundTime(elapsedTime: elapsedTime)
+            self.calculateBackgroundTime(elapsedTime: elapsedTime)
         }
     }
     
@@ -151,15 +151,15 @@ public class MagicTimer {
     
     // MARK: - Private methods
     // It calculates the elapsed time user was in background.
-    private func calclulateBackgroundTime(elapsedTime: TimeInterval) {
+    private func calculateBackgroundTime(elapsedTime: TimeInterval) {
         switch countMode {
         case .stopWatch:
              counter.totalCountedValue = elapsedTime
         case let .countDown(fromSeconds: countDownSeconds):
-            
+            let totalCountedValue = countDownSeconds + elapsedTime
             let subtraction = countDownSeconds - elapsedTime
             if subtraction.isPositive {
-                counter.totalCountedValue = subtraction
+                counter.totalCountedValue = totalCountedValue
             } else {
                 counter.totalCountedValue = 1
             }
@@ -180,7 +180,6 @@ public class MagicTimer {
                     fatalError("The time does not lead to a valid format. Use valid effetiveValue")
                 }
                 
-                self.counter.totalCountedValue = fromSeconds
                 guard counter.totalCountedValue.isBiggerThan(.zero) else {
                     executive.suspand {
                         self.lastState = .stopped
