@@ -88,11 +88,6 @@ public class MagicTimer {
     private var counter: MagicTimerCounterInterface
     private var executive: MagicTimerExecutiveInterface
     private var backgroundCalculator: MagicTimerBackgroundCalculatorInterface
-
-    // MARK: - Unavailable
-    /// A elapsed time that can observe
-    /// - Warning: renamed: "elapsedTimeDidChangeHandler"
-    public var observeElapsedTime: ((TimeInterval) -> Void)?
     
     /// The current state of the timer.
     /// - Warning: renamed: "lastState"
@@ -122,8 +117,9 @@ public class MagicTimer {
         executive.fire {
             self.backgroundCalculator.timerFiredDate = Date()
             self.lastState = .fired
+            self.setCounter()
             self.observeScheduleTimer()
-        }    
+        }
     }
     
     /// Stop counting the timer.
@@ -150,6 +146,15 @@ public class MagicTimer {
     }
     
     // MARK: - Private methods
+    private func setCounter() {
+        switch countMode {
+        case .countDown(let fromSeconds):
+            counter.defultValue = fromSeconds
+            counter.resetToDefaultValue()
+        default: break
+        }
+    }
+    
     // It calculates the elapsed time user was in background.
     private func calclulateBackgroundTime(elapsedTime: TimeInterval) {
         switch countMode {
@@ -170,17 +175,16 @@ public class MagicTimer {
         executive.scheduleTimerHandler = { [weak self] in
             guard let self else { return }
             
-            switch self.countMode {
+            switch countMode {
             case .stopWatch:
-                self.counter.add()
-                self.elapsedTime = self.counter.totalCountedValue
+                counter.add()
+                elapsedTime = counter.totalCountedValue
             case .countDown(let fromSeconds):
                 // Checking if defaultValue plus fromSeconds not going to invalid format(negative seconds).
-                guard (self.defultValue + fromSeconds).truncatingRemainder(dividingBy: self.effectiveValue).isEqual(to: .zero) else {
+                guard (defultValue + fromSeconds).truncatingRemainder(dividingBy: effectiveValue).isEqual(to: .zero) else {
                     fatalError("The time does not lead to a valid format. Use valid effetiveValue")
                 }
                 
-                self.counter.totalCountedValue = fromSeconds
                 guard counter.totalCountedValue.isBiggerThan(.zero) else {
                     executive.suspand {
                         self.lastState = .stopped
@@ -188,7 +192,7 @@ public class MagicTimer {
                     return
                 }
                 counter.subtract()
-                elapsedTime = self.counter.totalCountedValue
+                elapsedTime = counter.totalCountedValue
             }
         }
     }
