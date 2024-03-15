@@ -45,7 +45,20 @@ public class MagicTimer {
     }
     
     /// Timer count mode. Default is `.stopWatch`. Checkout ```MagicTimerMode```.
-    public var countMode: MagicTimerMode = .stopWatch
+    public var countMode: MagicTimerMode = .stopWatch {
+        didSet {
+            switch countMode {
+            case .stopWatch:
+                break
+            case .countDown(let fromSeconds):
+                // Checking if defaultValue plus fromSeconds not going to invalid format(negative seconds).
+                guard (defultValue + fromSeconds).truncatingRemainder(dividingBy: effectiveValue).isEqual(to: .zero) else {
+                    fatalError("The time does not lead to a valid format. Use valid effetiveValue")
+                }
+                counter.totalCountedValue = fromSeconds
+            }
+        }
+    }
     
     /// Timer default value. Default is 0.
     public var defultValue: TimeInterval = 0 {
@@ -169,18 +182,10 @@ public class MagicTimer {
     private func observeScheduleTimer() {
         executive.scheduleTimerHandler = { [weak self] in
             guard let self else { return }
-            
-            switch self.countMode {
+            switch countMode {
             case .stopWatch:
-                self.counter.add()
-                self.elapsedTime = self.counter.totalCountedValue
-            case .countDown(let fromSeconds):
-                // Checking if defaultValue plus fromSeconds not going to invalid format(negative seconds).
-                guard (self.defultValue + fromSeconds).truncatingRemainder(dividingBy: self.effectiveValue).isEqual(to: .zero) else {
-                    fatalError("The time does not lead to a valid format. Use valid effetiveValue")
-                }
-                
-                self.counter.totalCountedValue = fromSeconds
+                counter.add()
+            case .countDown(_):
                 guard counter.totalCountedValue.isBiggerThan(.zero) else {
                     executive.suspand {
                         self.lastState = .stopped
@@ -188,8 +193,8 @@ public class MagicTimer {
                     return
                 }
                 counter.subtract()
-                elapsedTime = self.counter.totalCountedValue
             }
+            elapsedTime = counter.totalCountedValue
         }
     }
 }

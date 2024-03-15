@@ -16,8 +16,11 @@ public final class MagicTimerBackgroundCalculator: MagicTimerBackgroundCalculato
     public var isActiveBackgroundMode: Bool = true
     public var backgroundTimeCalculateHandler: ((TimeInterval) -> Void)?
     
+    private var shouldCalculate: Bool = false
+    
     public init() {
         NotificationCenter.default.addObserver(self, selector: #selector(willEnterForegroundNotification), name: UIApplication.willEnterForegroundNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(willEnterBackgroundNotification), name: UIApplication.didEnterBackgroundNotification, object: nil)
     }
     
     deinit {
@@ -30,17 +33,22 @@ public final class MagicTimerBackgroundCalculator: MagicTimerBackgroundCalculato
     
     private func calculateDateDiffrence() -> TimeInterval? {
         guard let timerFiredDate else { return nil }
-        let validTimeSubtraction = abs(timerFiredDate - Date())
+        let validTimeSubtraction = floor(abs(timerFiredDate - Date()))
         return validTimeSubtraction.convertToTimeInterval()
     }
     
     @objc
     private func willEnterForegroundNotification() {
-        guard isActiveBackgroundMode else { return }
+        guard isActiveBackgroundMode, shouldCalculate else { return }
         
         if let timeInterval = calculateDateDiffrence() {
             backgroundTimeCalculateHandler?(timeInterval)
         }
+    }
+    
+    @objc
+    private func willEnterBackgroundNotification() {
+        shouldCalculate = true
     }
 }
 
